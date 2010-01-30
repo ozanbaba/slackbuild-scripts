@@ -1,0 +1,12 @@
+This repo consists of following build scripts:
+
+boncuk/ SBo script for boncuk Turkish-English Dictionrary.
+
+ibus-antly/ SBo script for ibus-anthy, ibus module for anthy
+
+wine/ Modified version of RWorkman's wine SBo script for building 
+	wine-git tree
+
+all scripts follow default build process of SBo exept wine.SlackBuilds
+uses user parameters and ownership revert work with optional paralel
+build support which can be user with $MAKEJ variable.
