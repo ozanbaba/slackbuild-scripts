@@ -31,6 +31,7 @@ VERSION=`cat $1/VERSION | awk '{ print $3}'` #getting wine version
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
+MAKEJ=${MAKEJ:-1}
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -40,13 +41,10 @@ OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
-  MAKEJ=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  MAKEJ=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  MAKEJ=""
 fi
 
 set -e
@@ -80,7 +78,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --build=$ARCH-slackware-linux
 
 make depend
-make $MAKEJ
+make -j $MAKEJ
 make install DESTDIR=$PKG
 
 ( cd $PKG
