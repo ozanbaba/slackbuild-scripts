@@ -28,7 +28,7 @@ set -u
 
 PRGNAM=wine
 VERSION=`cat $1/VERSION | awk '{ print $3}'` #getting wine version
-ARCH=${ARCH:-486}
+ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 
@@ -46,7 +46,7 @@ elif [ "$ARCH" = "i686" ]; then
   MAKEJ=""
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
-  MAKEJ="-j1"
+  MAKEJ=""
 fi
 
 set -e
