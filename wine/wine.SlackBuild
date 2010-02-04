@@ -32,6 +32,7 @@ ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
+PKGTYPE=${PKGTYPE:-txz}
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -104,7 +105,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-txz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
 
 chown -R $USER:$GROUP $WINE_GIT
