@@ -108,5 +108,5 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
-
+echo $USER:$GROUP
 chown -R $USER:$GROUP $WINE_GIT
