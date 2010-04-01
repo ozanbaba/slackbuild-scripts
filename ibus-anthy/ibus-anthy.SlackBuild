@@ -3,19 +3,18 @@
 # Slackware build script for ibus-anthy
 
 # Written by Ozan Türkyılmaz ozan.turkyilmaz@gmail.com
-# This script is in public domain. 
+# This script is in public domain.
 
-PRGNAM=ibus-anthy	
+PRGNAM=ibus-anthy
 VERSION=${VERSION:-1.2.0.20100115}
 ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}		
-PKGTYPE=${PKGTYPE:-tgz}
+TAG=${TAG:-_SBo}
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}	
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}	
+OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -70,4 +69,4 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
