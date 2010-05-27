@@ -28,11 +28,20 @@ set -u
 
 PRGNAM=wine
 VERSION=`cat $1/VERSION | awk '{ print $3}'` #getting wine version
-ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
 PKGTYPE=${PKGTYPE:-txz}
+
+#automatic arch detection from SBo template
+
+if [ -z "$ARCH" ]; then
+	case "$( uname -m )" in
+		i?86) ARCH=i486 ;;
+		arm*) ARCH=arm ;;
+		*) ARCH=$( uname -m ) ;;
+	esac
+fi
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
@@ -46,6 +55,9 @@ elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -march=i686 -mtune=i686"
 elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
+else
+  SLKCFLAGS="-O2"
+  LIBDIRSUFFIX=""
 fi
 
 set -e
@@ -66,8 +78,6 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-#let's have a clean up before compile
-make clean 
 
 # All of the libraries produced are 32bit libs anyway
 CFLAGS="$SLKCFLAGS" \
