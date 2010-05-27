@@ -24,10 +24,19 @@
 
 PRGNAM=boncuk	
 VERSION=${VERSION:-0.8}
-ARCH=${ARCH:-i486}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 PKGTYPE=${PKGTYPE:-tgz}
+
+#automatic arch delection from SBo template
+
+if [ -z "$ARCH" ]; then
+	case "$( uname -m )" in
+		i?86) ARCH=i486 ;;
+		arm*) ARCH=arm ;;
+		*) ARCH=$( uname -m ) ;;
+	esac
+fi
 
 DICT_INSTALL=${DICT_INSTALL:-YES}
 DICT=boncuk-dict
