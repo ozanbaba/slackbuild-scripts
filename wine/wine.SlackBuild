@@ -24,7 +24,7 @@
 
 # modifed for Wine-git tree by Ozan Türkyılmaz
 
-set -u
+
 
 PRGNAM=wine
 VERSION=`cat $1/VERSION | awk '{ print $3}'` #getting wine version
@@ -42,6 +42,9 @@ if [ -z "$ARCH" ]; then
 		*) ARCH=$( uname -m ) ;;
 	esac
 fi
+
+set -u
+VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
