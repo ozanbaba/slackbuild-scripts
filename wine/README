@@ -2,7 +2,9 @@ Wine is an Open Source implementation of the Windows API on top of X and Unix.
 
 This requires fontforge and webcore-fonts.
 
-you can tell the script to pause after configure to see if configure script worked
-as expected. by default it won't pause. 
+wine64.SLackBuild will build only wine 64bit
 
-by default, on x86_64 systems, script will do paralel build with four jobs. 
+wine.SlackBuild will build only wine 32bit
+
+wow64.SLackBuild will build both wine 32bit and 64bit to run both 32bit
+      and 64bit programs. 
