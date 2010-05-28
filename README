@@ -5,7 +5,9 @@ boncuk/ SBo script for boncuk Turkish-English Dictionrary.
 ibus-antly/ SBo script for ibus-anthy, ibus module for anthy
 
 wine/ Modified version of RWorkman's wine SBo script for building 
-	wine-git tree
+	wine-git tree for both 32bit and 64bit. there's a script for 
+        building  wine32 and wine64 togetter to run both 32bit and 
+        64bit programs called wow64.SlackBuilds.  
 
 all scripts follow default build process of SBo exept wine.SlackBuilds
 uses user parameters and ownership revert work with optional paralel
