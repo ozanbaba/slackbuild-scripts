@@ -27,7 +27,6 @@
 
 
 PRGNAM=wine
-VERSION=`cat $1/VERSION | awk '{ print $3}'` #getting wine version
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
