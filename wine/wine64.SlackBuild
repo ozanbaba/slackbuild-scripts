@@ -26,7 +26,7 @@
 
 
 
-PRGNAM=wine
+PRGNAM=wine64
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
@@ -82,11 +82,11 @@ find . \
  -exec chmod 644 {} \;
 
 
-# All of the libraries produced are 32bit libs anyway
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
+  --libdir=/usr/lib64 \
   --enable-win64 \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
