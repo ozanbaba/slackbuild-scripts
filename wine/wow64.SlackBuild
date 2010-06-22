@@ -29,7 +29,7 @@
 
 
 
-PRGNAM=wine
+PRGNAM=wow64
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
@@ -68,7 +68,7 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $TMP/build32 $TMP/build64 $PKG $OUTPUT 
+mkdir -p $TMP $TMP/$PRGNAM/build32 $TMP/$PRGNAM/build64 $PKG $OUTPUT 
 cd $1
 WINE_GIT=$(pwd)
 
@@ -84,16 +84,16 @@ find . \
  -exec chmod 644 {} \;
 
 # we have to do distclean before out of tree builds
-make distclean
+# make distclean 
 
 # first to build wine64
-cd $TMP/build64
+cd $TMP/$PRGNAM/build64
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
   --prefix=/usr \
-  --libdir=/usr/lib64
+  --libdir=/usr/lib64 \
   --enable-win64 \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
@@ -104,15 +104,15 @@ make -j $MAKEJ
 make install DESTDIR=$PKG
 
 # now time to build wine (32 bit)
-cd $TMP/build32
+cd $TMP/$PRGNAM/build32
 
-CFLAGS="$SLKCLAGS" \
-CXXFLAGS="$SLKFLAGS" \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
-  --with-wine64=$TMP/build64 \
+  --with-wine64=$TMP/$PRGNAM/build64 \
   --prefix=/usr \
   --libdir=/usr/lib \
-  --mandir=/usr/man
+  --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --with-opengl \
   --build=$ARCH-slackware-linux
@@ -133,9 +133,7 @@ make install DESTDIR=$PKG
 )
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a \
-  ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION \
-    $PKG/usr/doc/$PRGNAM-$VERSION
+
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
