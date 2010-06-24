@@ -13,7 +13,7 @@ wine: on top of X and Unix.
 wine:
 wine: Homepage: http://www.winehq.com/
 wine:
-wine: 
-wine:
+wine: This package consists of win32 compatibility files
+wine: for multilib 64 bit systems. 
 wine:
 wine:

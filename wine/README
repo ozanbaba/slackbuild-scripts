@@ -6,5 +6,5 @@ wine64.SLackBuild will build only wine 64bit
 
 wine.SlackBuild will build only wine 32bit
 
-wow64.SLackBuild will build both wine 32bit and 64bit to run both 32bit
+wow64.SLackBuild will build both wine compat 32bit and 64bit to run both 32bit
       and 64bit programs. 

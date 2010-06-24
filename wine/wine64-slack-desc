@@ -9,11 +9,11 @@
 wine: wine (Wine Is Not an Emulator)
 wine:
 wine: Wine is an Open Source implementation of the Windows API
-wine: on top of X and Unix. 
+wine: on top of X and Unix.
 wine:
 wine: Homepage: http://www.winehq.com/
 wine:
-wine: 
 wine:
+wine: This package consists of win64 implentation
 wine:
 wine:

@@ -27,9 +27,13 @@
 # for building both wine and wine64 to run both 32bit and 64bit programs
 # we have to do out of source tree builds.
 
+# in the end it will create two packges: wine64 and wine-compat32.
+# wine64 is same as one build one with wine64.SlackBuild 
+# wine-compat32 one is will be missing one thing wineserver. 
+# so it cannot be used for stand alone. 
 
-
-PRGNAM=wow64
+PRGNAM=wine64
+PRGNAM2=wine
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
@@ -52,6 +56,7 @@ VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
+PKG1=$TMP/package-$PRGNAM1
 OUTPUT=${OUTPUT:-/tmp}
 
 
@@ -67,8 +72,8 @@ fi
 
 set -e
 
-rm -rf $PKG
-mkdir -p $TMP $TMP/$PRGNAM/build32 $TMP/$PRGNAM/build64 $PKG $OUTPUT 
+rm -rf $PKG $PKG1
+mkdir -p $TMP $TMP/$PRGNAM $TMP/$PRGNAM1 $PKG $OUTPUT 
 cd $1
 WINE_GIT=$(pwd)
 
@@ -85,7 +90,7 @@ find . \
 
 
 # first to build wine64
-cd $TMP/$PRGNAM/build64
+cd $TMP/$PRGNAM
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -102,21 +107,21 @@ make -j $MAKEJ
 make install DESTDIR=$PKG
 
 # now time to build wine (32 bit)
-cd $TMP/$PRGNAM/build32
+cd $TMP/$PRGNAM1
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
-  --with-wine64=$TMP/$PRGNAM/build64 \
+  --with-wine64=$TMP/$PRGNAM \
   --prefix=/usr \
   --libdir=/usr/lib \
   --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --docdir=/usr/doc/$PRGNAM1-$VERSION \
   --with-opengl \
   --build=$ARCH-slackware-linux
 
 make -j $MAKEJ
-make install DESTDIR=$PKG
+make install DESTDIR=$PKG1
 
 ( cd $PKG
   find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | \
@@ -130,18 +135,35 @@ make install DESTDIR=$PKG
   for i in $(find . -type l) ; do ln -s $(readlink $i).gz $i.gz ; rm $i ; done
 )
 
+( cd $PKG1 
+  find . | xargs file | grep "executable" | grep ELF | cut -f 1 -d : | \
+    xargs strip --strip-unneeded 2> /dev/null || true
+  find . | xargs file | grep "sharep object" | grep ELF | cut -f 1 -d : | \
+    xargs strip --strip unneeded 2> /dev/null
+)
+
+
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+mkdir -p $PKG1/usr/doc/$PRGNAM1-$VERSION
 
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/$PRGNAM.SlackBuild > $PKG1/usr/doc/$PRGNAM1$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
-cat $CWD/slack-desc > $PKG/install/slack-desc
+mkdir -p $PKG1/install
+
+cat $CWD/wine64-slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
+cat $CWD/wine-compat-desc > $PKG1/install/slack-desc
+cat $CWD/doinst.sh > $PKG1/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+cd $PKG1
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM1-compat32-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
-echo $USER:$GROUP
+# putting ownerships of git tree into orginal state
 
 chown -R $USER:$GROUP $WINE_GIT
