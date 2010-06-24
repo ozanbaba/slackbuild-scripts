@@ -6,14 +6,14 @@
 # customary to leave one space after the ':'.
 
     |-----handy-ruler------------------------------------------------------|
-wine: wine (Wine Is Not an Emulator)
-wine:
-wine: Wine is an Open Source implementation of the Windows API
-wine: on top of X and Unix.
-wine:
-wine: Homepage: http://www.winehq.com/
-wine:
-wine:
-wine: This package consists of win64 implentation
-wine:
-wine:
+wine64: wine (Wine Is Not an Emulator)
+wine64:
+wine64: Wine is an Open Source implementation of the Windows API
+wine64: on top of X and Unix.
+wine64:
+wine64: Homepage: http://www.winehq.com/
+wine64:
+wine64:
+wine64: This package consists of win64 implentation
+wine64:
+wine64:
