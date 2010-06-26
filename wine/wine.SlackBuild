@@ -65,7 +65,7 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
+mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM
 cd $1
 WINE_GIT=$(pwd)
 
@@ -81,10 +81,11 @@ find . \
  -exec chmod 644 {} \;
 
 
-# All of the libraries produced are 32bit libs anyway
+# all libs are 32 bit and all builds are out of tree
+cd $OUTPUT/$PRGNAM
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
+$WINE_GIT/configure \
   --prefix=/usr \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \

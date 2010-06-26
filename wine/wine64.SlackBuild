@@ -66,7 +66,7 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
+mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM 
 cd $1
 WINE_GIT=$(pwd)
 
@@ -81,10 +81,13 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+# all builds are out of tree
+
+cd $OUTPUT/$PRGNAM
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
+$WINE_GIT/configure \
   --prefix=/usr \
   --libdir=/usr/lib64 \
   --enable-win64 \
