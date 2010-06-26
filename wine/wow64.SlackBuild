@@ -33,7 +33,7 @@
 # so it cannot be used for stand alone. 
 
 PRGNAM=wine64
-PRGNAM2=wine
+PRGNAM1=wine
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
 MAKEJ=${MAKEJ:-1}
