@@ -103,7 +103,7 @@ $WINE_GIT/configure \
   --with-opengl \
   --build=$ARCH-slackware-linux
 
-make -j $MAKEJ
+make  
 make install DESTDIR=$PKG
 
 # now time to build wine (32 bit)
@@ -120,7 +120,7 @@ $WINE_GIT/configure \
   --with-opengl \
   --build=$ARCH-slackware-linux
 
-make -j $MAKEJ
+make 
 make install DESTDIR=$PKG1
 
 ( cd $PKG
