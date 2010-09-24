@@ -1,0 +1,18 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+       |-----handy-ruler------------------------------------------------------|
+prelink:   Prelink - ELF prelinking utility to speed up dynamic linking.
+prelink:
+prelink: prelink is a program which modifies ELF shared libraries and ELF 
+prelink: dynamically linked binaries, so that the time which dynamic linker 
+prelink: needs for their relocation at startup significantly decreases and
+prelink: also due to fewer relocations the run-time memory consumption decreases
+prelink:
+prelink:          http://people.redhat.com/jakub/prelink/
+prelink:
+prelink:
