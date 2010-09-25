@@ -100,7 +100,7 @@ find . \
 #Configure it
 cd $BDIR 
 CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
  --prefix=/usr \
  --enable-win64 \
@@ -141,7 +141,7 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 #Configure it according to
 cd $BDIR2
 CFLAGS="$SLKCLAGS" \
-CXXFLAGS="$SLKCLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
  --prefix=/usr \
  --with-wine64=$BDIR \
