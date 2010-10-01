@@ -5,7 +5,7 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-    |-----handy-ruler------------------------------------------------------|
+      |-----handy-ruler------------------------------------------------------|
 wine64: wine (Wine Is Not an Emulator)
 wine64:
 wine64: Wine is an Open Source implementation of the Windows API
