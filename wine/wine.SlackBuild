@@ -29,7 +29,6 @@
 PRGNAM=wine
 BUILD=${BUILD:-1}
 TAG=${TAG:-_OZ}
-MAKEJ=${MAKEJ:-1}
 PKGTYPE=${PKGTYPE:-txz}
 
 #automatic arch detection from SBo template
@@ -92,7 +91,8 @@ $WINE_GIT/configure \
   --with-opengl \
   --build=$ARCH-slackware-linux
 
-make -j $MAKEJ
+make 
+make depend
 make install DESTDIR=$PKG
 
 
@@ -106,8 +106,8 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-  ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION \
-    $PKG/usr/doc/$PRGNAM-$VERSION
+  $WINE_GIT/ANNOUNCE $WINE_GIT/AUTHORS $WINE_GIT/COPYING.LIB $WINE_GIT/LICENSE* \
+  $WINE_GIT/README $WINE_GIT/VERSION $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
