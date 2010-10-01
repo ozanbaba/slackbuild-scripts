@@ -49,7 +49,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-BDIR=$TMP/$PRGNAM/build64
+BDIR=$TMP/$PRGNAM
 set -e
 
 if [ "$ARCH" = "i486" ]; then
@@ -88,16 +88,17 @@ find . \
 
 cd $BDIR 
 CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
  --prefix=/usr \
  --enable-win64 \
- --libdir=/usr/lib$LIBDIRSUFFIX \
+ --libdir=/usr/lib64 \
  --mandir=/usr/man \
  --docdir=/usr/doc/$PRGNAM-$VERSION \
  --build=$ARCH-slackware-linux
 
-make -j $MAKEJ
+make 
+make depend
 make install DESTDIR=$PKG
 
 #Strip the binaries
@@ -111,16 +112,17 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlint $i ).gz $i.gz ; r
 #Copying docs
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
- ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION \
- $PKG/usr/doc/$PRGNAM-$VERSION
+ $WINE_GIT/ANNOUNCE $WINE_GIT/AUTHORS $WINE_GIT/COPYING.LIB $WINE_GIT/LICENSE* \
+ $WINE_GIT/README $WINE_GIT/VERSION $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM-SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 #Copying /install
 mkdir -p $PKG/install
-cat $CWD/wine64-slack/desc > $PKG/install/slack-desc
+cat $CWD/wine64-slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 #Creating the package
+cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
 #Changing ownership of git tree back

@@ -34,7 +34,6 @@ PRGNAM=wine64
 PRGNAM2=wine-compat32
 BUILD=${BUILD:-1} #not really used but still here for future needs.
 TAG=${TAG:-_OZ} #change it for something else If you distrube the packages
-MAKEJ=${MAKEJ:-1} #change it as you wish
 PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic ARCH delection from SBo
@@ -56,8 +55,8 @@ TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PRGNAM
 PKG2=$TMP/package-$PRGNAM2
 OUTPUT=${OUTPUT:-/tmp}
-BDIR=$TMP/$PRGNAM/build64
-BDIR2=$TMP/$PRGNAM/build32
+BDIR=$TMP/$PRGNAM
+BDIR2=$TMP/$PRGNAM2
 
 set -e
 
@@ -71,20 +70,18 @@ elif [ "$ARCH" = "x86_64" ]; then
 	SLKCFLAGS="-O2 -fPIC"
 	LIBDIRSUFFIX="64"
 else 
-	echo "You're on your own"
-	SLKCFLAGS="-O2"
-	LIBDIRSUFFIX=""
+	echo "Can't compile it for UNKNOWN."
+	false
 fi
 
-rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM $BDIR
+rm -rf $PKG $PKG2
+mkdir -p $TMP $PKG $PKG2 $OUTPUT $TMP/$PRGNAM $BDIR $BDIR2
 cd $1
 WINE_GIT=$(pwd)
 
 #Saving ownerships for future recovery
 USER=$( ls -l $WINE_GIT/VERSION | awk '{ print $3 }' )
 GROUP=$( ls -l $WINE_GIT/VERSION | awk '{ print $4 }' )
-
 
 #Changing ownerships
 
@@ -106,10 +103,11 @@ $WINE_GIT/configure \
  --enable-win64 \
  --mandir=/usr/man \
  --docdir=/usr/doc/$PRGNAM-$VERSION \
- --libdir=/usr/lib$LIBDIRSUFFIX \
+ --libdir=/usr/lib64 \
  --build=$ARCH-slackware-linux
 
-make -j $MAKEJ
+make
+make depend
 make install DESTDIR=$PKG
 
 
@@ -124,32 +122,35 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlint $i ).gz $i.gz ; r
 #Copying docs
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
- ANNOUNCE AUTHORS COPYING.LIB LICENSE* README VERSION \
+ $WINE_GIT/ANNOUNCE $WINE_GIT/AUTHORS $WINE_GIT/COPYING.LIB $WINE_GIT/LICENSE*\
+ $WINE_GIT/README $WINE_GIT/VERSION \
  $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/$PRGNAM-SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 #Copying /install
 mkdir -p $PKG/install
-cat $CWD/wine64-slack/desc > $PKG/install/slack-desc
+cat $CWD/wine64-slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 #Creating the package
+cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
 #Now 32 bit Wine in compat mode
 
 #Configure it according to
 cd $BDIR2
-CFLAGS="$SLKCLAGS" \
+CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
  --prefix=/usr \
  --with-wine64=$BDIR \
- --libdir=/usr/lib
+ --libdir=/usr/lib \
  --build=$ARCH-slackware-linux
 
 #Build the beast
-make 
+make
+make depend
 make install DESTDIR=$PKG2
 
 #Stript the binaries
@@ -162,6 +163,7 @@ cat $CWD/wine-compat32-slack-desc > $PKG2/install/slack-desc
 
 
 #Build the package
+cd $PKG2
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM2-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
 
