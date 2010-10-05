@@ -7,8 +7,15 @@ ibus-antly/ SBo script for ibus-anthy, ibus module for anthy
 wine/ Modified version of RWorkman's wine SBo script for building 
 	wine-git tree for both 32bit and 64bit. there's a script for 
         building  wine32 and wine64 togetter to run both 32bit and 
-        64bit programs called wow64.SlackBuilds.  
+        64bit programs called wow64.SlackBuilds. New rewriten from 
+	scratch version of the wow64.SlackBuild will create one wine64
+	package same as one that can be built with wine64.SlackBuild and 
+	wine-compat32 package which lacks wineserver. wine-compat32 as 
+	name suggests is for 64 bit multilib systems with wine64 installed.
+	If there's a call for it, I'll create a seperate script for compat32
+	building.
+
+prelink/ prelink build script which Wine needs. However it's not a hard dependence
 
 all scripts follow default build process of SBo exept wine.SlackBuilds
-uses user parameters and ownership revert work with optional paralel
-build support which can be user with $MAKEJ variable.
+uses user parameters and ownership revert of the source tree.
