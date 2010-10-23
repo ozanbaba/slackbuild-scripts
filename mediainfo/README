@@ -1,0 +1,11 @@
+MediaInfo supplies technical and tag information about a video or
+audio file.
+
+What information can I get from MediaInfo?
+* General: title, author, director, album, track number, date, duration...
+* Video: codec, aspect, fps, bitrate...
+* Audio: codec, sample rate, channels, language, bitrate...
+* Text: language of subtitle
+* Chapters: number of chapters, list of chapters
+
+MediaInfo needs libmediainfo which aviable in SBo
