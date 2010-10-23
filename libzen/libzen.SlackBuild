@@ -29,8 +29,10 @@ BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
 # Automatically determine the architecture we're building on:
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+     i?86) ARCH=i486 ;;
+     arm*) ARCH=arm ;;
     # Unless $ARCH is already set, use uname -m for all other archs:
        *) ARCH=$( uname -m ) ;;
   esac
@@ -55,7 +57,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-set -uev 
+set -e 
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -94,7 +96,7 @@ for i in Base64 HTTP_Client Format/Html Format/Http TinyXml; do
 done      
 
 mkdir -p $PKG/usr/bin
-cp $TMP/$PRGNAM-$VERSION/ZenLib/Project/GNU/Library/libzen-config $PKG/usr/bin/libzen-config
+cp $TMP/$PRGNAM-$VERSION/Project/GNU/Library/libzen-config $PKG/usr/bin/libzen-config
 
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
 cat $TMP/$PRGNAM-$VERSION/Project/GNU/Library/libzen.pc > $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/libzen.pc
