@@ -68,15 +68,15 @@ else
   LIBDIRSUFFIX=""
 fi
 
-set -e 
+set -uev 
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/${PRGNAM}_$VERSION.tar.bz2
-
-cd ZenLib
+mv ZenLib $PRGNAM-$VERSION 
+cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -92,19 +92,23 @@ CXXFLAGS="$SLKCFLAGS" \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --includedir=/usr/include \
+  --enable-shared \
   --build=$ARCH-slackware-linux \
-  --docdir=/usr/doc/$PRGRAM-$VERSION
+  --docdir=/usr/doc/$PRGNAM-$VERSION
 
 make
-make install DESTDIR=$PKG
+make install-strip DESTDIR=$PKG
 
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
-  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+mkdir -p $PKG/usr/include/ZenLib
+cp -a $TMP/$PRGNAM-$VERSION/Source/ZenLib/*.h $PKG/usr/include/ZenLib
+
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
+cat $TMP/$PRGNAM-$VERSION/Project/GNU/Library/libzen.pc > $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/libzen.pc
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cd $TMP/$PRGNAM-$VERSION
 cp -a \
-  $TMP/ZenLib/History.txt $TMP/ZenLib/License.txt $TMP/ZenLib/ReadMe.txt \
-  $TMP/ZenLib/Source/Doc/Documentation.html $TMP/ZenLib/Source/Example/ZenLib_Test.cpp \
+  History.txt License.txt ReadMe.txt Source/Doc/Documentation.html \
   $PKG/usr/doc/$PRGNAM-$VERSION
 
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
