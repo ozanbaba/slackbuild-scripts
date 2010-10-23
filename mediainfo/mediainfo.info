@@ -1,0 +1,10 @@
+PRGNAM="mediainfo"
+VERSION="1.7.35"
+HOMEPAGE="http://mediainfo.sourceforge.net/"
+DOWNLOAD="http://downloads.sourceforge.net/project/mediainfo/source/mediainfo/0.7.35/mediainfo_0.7.35.tar.bz2?r=http%3A%2F%2Fmediainfo.sourceforge.net%2Fen%2FDownload%2FSource&ts=1287856076&use_mirror=garr"
+MD5SUM="60323db7b0f8fe3ab7fb6c9888371e05"
+DOWNLOAD_x86_64
+MD5SUM_x86_64=
+MAINTAINER="Ozan Türkyılmaz"
+EMAIL="ozan.turkyilmaz@gmail.com"
+APPROVED=""
