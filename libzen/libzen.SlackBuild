@@ -1,38 +1,27 @@
 #!/bin/sh
 
-# Slackware build script for <appname>
+# Slackware build script for libzen
 
-# Written by (your name) (your contact information)
-
-# (add license information here if you desire; otherwise,
-# all submissions are considered to be in the public domain)
-# Some licenses may incorporate the "Written by" information
-# above, and if so, that line can be omitted
-# We strongly suggest *not* using GPL for scripts, as it requires
-# a copy of the GPL to be distributed with it.  Since the GPL
-# itself is longer than any build script will be, this just doesn't
-# make good sense...
-
-# |-----------------------------------------------------------------| #
-# REMOVE THIS ENTIRE BLOCK OF TEXT #
+# Copyright 2010 Ozan Türkyılmaz İstanbul, TUR
+# All rights reserved.
 #
-# This template is not meant to be a 'cut and paste' script to
-# enable any random user to make a working package.  While
-# we're certainly not discouraging use of this template, if
-# you haven't manually gone through each step of the process
-# without the build script (typically as a normal user, as this
-# will reveal problems that you won't see as root), then there's
-# a good chance that something important is missing from your
-# submission.
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# When using this template script, please remove as many of
-# these unnecessary comments as possible.  Commented code is
-# a good thing, but if it's obvious, there's no need to comment it.
-#
-# AGAIN, REMOVE THE COMMENTS IF THEY ARE NOT NEEDED - DON'T JUST
-# DELETE THIS BLOCK OF TEXT WITHOUT BOTHERING TO READ WHAT'S IN IT.
-#
-# |-----------------------------------------------------------------| #
 
 PRGNAM=libzen			
 VERSION=${VERSION:-0.4.15}	
@@ -40,8 +29,6 @@ BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
 # Automatically determine the architecture we're building on:
-if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
     i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
     # Unless $ARCH is already set, use uname -m for all other archs:
@@ -106,6 +93,8 @@ for i in Base64 HTTP_Client Format/Html Format/Http TinyXml; do
       cp -a $TMP/$PRGNAM-$VERSION/Source/ZenLib/$i/*.h $PKG/usr/include/ZenLib/$i;
 done      
 
+mkdir -p $PKG/usr/bin
+cp $TMP/$PRGNAM-$VERSION/ZenLib/Project/GNU/Library/libzen-config $PKG/usr/bin/libzen-config
 
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
 cat $TMP/$PRGNAM-$VERSION/Project/GNU/Library/libzen.pc > $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/libzen.pc
