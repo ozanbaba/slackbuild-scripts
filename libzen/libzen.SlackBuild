@@ -101,6 +101,11 @@ make install-strip DESTDIR=$PKG
 
 mkdir -p $PKG/usr/include/ZenLib
 cp -a $TMP/$PRGNAM-$VERSION/Source/ZenLib/*.h $PKG/usr/include/ZenLib
+for i in Base64 HTTP_Client Format/Html Format/Http TinyXml; do
+      mkdir -p $PKG/usr/include/ZenLib/$i;
+      cp -a $TMP/$PRGNAM-$VERSION/Source/ZenLib/$i/*.h $PKG/usr/include/ZenLib/$i;
+done      
+
 
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig
 cat $TMP/$PRGNAM-$VERSION/Project/GNU/Library/libzen.pc > $PKG/usr/lib${LIBDIRSUFFIX}/pkgconfig/libzen.pc
