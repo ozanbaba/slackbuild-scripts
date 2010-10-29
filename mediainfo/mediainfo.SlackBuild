@@ -41,7 +41,9 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}	
-
+KDE=${KDE:-yes}
+GUI=${GUI:-yes}
+CLI=${CLI:-yes}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -72,7 +74,7 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
-
+if [ "$GUI" = "yes" ]; then
 cd Project/GNU/GUI
 ./autogen
 
@@ -92,6 +94,10 @@ make
 make install-strip DESTDIR=$PKG
 
 cd ../../../
+# copy GUI specific documentation
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a History_GUI.txt Release/ReadMe_GUI_Linux.txt \
+	$PKG/usr/doc/$PRGNAM-$VERSION
 
 # Copy desktop file
 mkdir -p $PKG/usr/share/applications
@@ -105,7 +111,18 @@ cp Source/Ressource/Image/MediaInfo.png \
 mkdir -p $PKG/usr/share/pixmaps
 cp Source/Ressource/Image/MediaInfo.png \
 	$PKG/usr/share/pixmaps/$PRGNAM.png
-
+if [ "$KDE" = "yes" ]; then
+#copy the context menus for Konqueror and etc.
+mkdir -p $PKG/usr/share/apps/apps/konqueror/servicemenus
+cp  Project/GNU/GUI/mediainfo-gui.kde3.desktop \
+	$PKG/usr/share/apps/apps/konqueror/servicemenus
+mkdir -p $PKG/usr/share/kde4/services/ServiceMenus/
+cp Project/GNU/GUI/mediainfo-gui.kde4.desktop \
+	$PKG/usr/share/kde4/services/ServiceMenus/
+fi
+fi
+if [ "$CLI" = "yes" ]; then
+ 
 cd Project/GNU/CLI
 ./autogen
 
@@ -122,15 +139,18 @@ CXXFLAGS="$SLKCFLAGS" \
 
 make 
 make install-strip DESTDIR=$PKG
-
 cd ../../../
 
-
-# Copy program documentation into the package
+#copy the CLI specific documentation
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp -a \
-  History_GUI.txt History_CLI.txt License.html ReadMe.html Release/ReadMe_CLI_Linux.txt \
-  Release/ReadMe_GUI_Linux.txt $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a History_CLI.txt Release/ReadMe_CLI_Linux.txt \
+	$PKG/usr/doc/$PRGNAM-$VERSION
+
+fi
+
+# Copy general program documentation into the package
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a License.html ReadMe.html $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 # Copy the slack-desc (and a custom doinst.sh if necessary) into ./install
