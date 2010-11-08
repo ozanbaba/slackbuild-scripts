@@ -6,11 +6,11 @@
 # This script is in public domain.
 
 PRGNAM=ibus-anthy
-VERSION=${VERSION:-1.2.1}
+VERSION=${VERSION:-1.2.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
-#automatic arch delection from SBo template
+#automatic arch detection from SBo template
 
 if [ -z "$ARCH" ]; then
 	case "$( uname -m )" in
@@ -78,7 +78,6 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
