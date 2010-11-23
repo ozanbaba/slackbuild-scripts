@@ -1,6 +1,10 @@
 This repo consists of following build scripts:
 
+Chatboot-eliza/ SBo script for eliza clone in Perl
+
 boncuk/ SBo script for boncuk Turkish-English Dictionary.
+
+bootchart/ SBo script for boot 'profiler' bootchart. 
 
 cbase/ SBo script for cbase; library of useful functions for
         system programmers. 
