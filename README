@@ -31,6 +31,8 @@ prelink/ an elf prelinking utility. Wine needs this.
 splint/ Static C code checking tool to find common and non-common 
         programming errors. 
 
+vstr/ Dynamic C string library. 
+
 wine/ Wine build scripts for wine-git tree (or any other source tree)
         wine.SlackBulid is for 32 bit Wine and based on RWorkman's SBo 
         script. wine64.SlackBuild is for 64 bit Wine and wow64.SlackBuild
