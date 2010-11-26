@@ -106,8 +106,8 @@ $WINE_GIT/configure \
  --libdir=/usr/lib64 \
  --build=$ARCH-slackware-linux
 
-make
 make depend
+make 
 make install DESTDIR=$PKG
 
 
@@ -149,8 +149,8 @@ $WINE_GIT/configure \
  --build=$ARCH-slackware-linux
 
 #Build the beast
-make
 make depend
+make 
 make install DESTDIR=$PKG2
 
 #Stript the binaries

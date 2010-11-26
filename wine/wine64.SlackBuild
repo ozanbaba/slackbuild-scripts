@@ -97,8 +97,8 @@ $WINE_GIT/configure \
  --docdir=/usr/doc/$PRGNAM-$VERSION \
  --build=$ARCH-slackware-linux
 
-make 
 make depend
+make 
 make install DESTDIR=$PKG
 
 #Strip the binaries
