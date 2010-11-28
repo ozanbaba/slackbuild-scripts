@@ -28,7 +28,7 @@
 
 PRGNAM=wine
 BUILD=${BUILD:-1}
-TAG=${TAG:-_OZ}
+TAG=${TAG:-_Oz}
 PKGTYPE=${PKGTYPE:-txz}
 
 #automatic arch detection from SBo template
@@ -45,10 +45,10 @@ set -u
 VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/Oz}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-
+MAKEDEP=${MAKEDEP:-/no}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -91,7 +91,10 @@ $WINE_GIT/configure \
   --with-opengl \
   --build=$ARCH-slackware-linux
 
-make depend 
+if [ "$MAKEDEP" = "yes" ]; then
+make depend
+fi
+
 make 
 make install DESTDIR=$PKG
 

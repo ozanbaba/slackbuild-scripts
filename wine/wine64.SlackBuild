@@ -27,9 +27,9 @@
 
 PRGNAM=wine64
 BUILD=${BUILD:-1} #hot really used but still here for future needs.
-TAG=${TAG:-_OZ} #change it for something else If you distrube the packages
+TAG=${TAG:-_Oz} #change it for something else If you distrube the packages
 MAKEJ=${MAKEJ:-1} #change it as you wish
-PKGTYPE=${PKGTYPE:-tgz}
+PKGTYPE=${PKGTYPE:-txz}
 
 #automatic ARCH delection from SBo
 
@@ -46,10 +46,12 @@ set -u #be careful with unbound variables
 VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/Oz}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
+MAKEDEP=${MAKEDEP:-no}
+
 set -e
 
 if [ "$ARCH" = "i486" ]; then
@@ -97,7 +99,10 @@ $WINE_GIT/configure \
  --docdir=/usr/doc/$PRGNAM-$VERSION \
  --build=$ARCH-slackware-linux
 
+if [ "$MAKEDEP" = "yes" ]; then
 make depend
+fi
+
 make 
 make install DESTDIR=$PKG
 

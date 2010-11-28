@@ -33,7 +33,7 @@
 PRGNAM=wine64
 PRGNAM2=wine-compat32
 BUILD=${BUILD:-1} #not really used but still here for future needs.
-TAG=${TAG:-_OZ} #change it for something else If you distrube the packages
+TAG=${TAG:-_Oz} #change it for something else If you distrube the packages
 PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic ARCH delection from SBo
@@ -51,12 +51,13 @@ set -u #be careful with unbound variables
 VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp}
+TMP=${TMP:-/tmp/Oz}
 PKG=$TMP/package-$PRGNAM
 PKG2=$TMP/package-$PRGNAM2
 OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
 BDIR2=$TMP/$PRGNAM2
+MAKEDEP=${MAKEDEP:-no}
 
 set -e
 
@@ -93,7 +94,6 @@ find . \
   -exec chmod 644 {} \;
 
 # First 64 bit Wine
-
 #Configure it
 cd $BDIR 
 CFLAGS="$SLKCFLAGS" \
@@ -106,7 +106,10 @@ $WINE_GIT/configure \
  --libdir=/usr/lib64 \
  --build=$ARCH-slackware-linux
 
+if [ "$MAKEDEP" = "yes" ]; then
 make depend
+fi
+
 make 
 make install DESTDIR=$PKG
 
@@ -148,8 +151,10 @@ $WINE_GIT/configure \
  --libdir=/usr/lib \
  --build=$ARCH-slackware-linux
 
-#Build the beast
+if [ "$MAKEDEP" = "yes" ]; then
 make depend
+fi
+
 make 
 make install DESTDIR=$PKG2
 
