@@ -24,7 +24,7 @@
 
 PRGNAM=prelink
 VERSION=${VERSION:-20100106}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 
 #Automatic ARCH delection from SlackBuild template
@@ -108,7 +108,10 @@ cp -a \
  $PKG/usr/doc/$PRGNAM-$VERSION
  cp -a ./doc/*.pdf $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-cat $CWD/prelink > $PKG/usr/doc/$PRGNAM-$VERSION/prelink
+# Copy cron script
+cat $CWD/prelink > $PKG/usr/doc/$PRGNAM-$VERSION/prelink.cron
+# Copy optimal prelink-all script
+cat $CWD/prelink-all > $PKG/usr/doc/$PRGNAM-$VERSION/prelink-all
 
 #Copy default config file
 mkdir -p $PKG/etc

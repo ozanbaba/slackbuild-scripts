@@ -1,4 +1,5 @@
-Prelink is a program that modifies ELF shared libraries and ELF dynamically linked binaries in such a way that the time needed for thedynamic linker to perform relocations at startup significantly decreases. Due to fewer relocations, the run-time memory consumption decreases as well (especially the number of unshareable pages). The prelinking information is only used at startup time if none of the dependent libraries have changed since prelinking; otherwise programs are relocated normally.
+Prelink is a program that modifies ELF shared libraries and ELF dynamically linked binaries in such a way that the time needed for the dynamic linker to perform relocations at start-up significantly decreases. Due to fewer relocations, the run-time memory consumption decreases as well (especially the number of unsharable pages). The prelinking information is only used at start-up time if none of the dependent libraries have changed since prelinking; otherwise programs are relocated normally.
 
-There's a sript for prelink sutiable for a cron job which can be found at /usr/doc/prelink-$VERSION. Before setting up a cron job, First run prelink on the system then read script and modify it according to.
- 
+There's a script for prelink suitable for a cron job which can be found at /usr/doc/prelink-$VERSION. Before setting up a cron job, First run prelink on the system then read script and modify it according to.
+
+WARNING: Non-prelinked binaries may cause SEGFAULT in prelinked systems using prelinked libraries. If some programs crashes with SEGFAULT while calling system libraries when run prelink on the program in question. The prelink-all script ,which can be found in /usr/doc/prelink-$VERSION, can be used to prelink all system as a root.
