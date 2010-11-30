@@ -1,0 +1,10 @@
+Wine is an Open Source implementation of the Windows API on top of X and Unix.
+
+This requires fontforge and webcore-fonts.
+
+wine64.SLackBuild will build only wine 64bit
+
+wine.SlackBuild will build only wine 32bit
+
+wow64.SLackBuild will build both wine compat 32bit and 64bit to run both 32bit
+      and 64bit programs. 
