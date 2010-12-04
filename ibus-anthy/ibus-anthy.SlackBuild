@@ -3,10 +3,12 @@
 # Slackware build script for ibus-anthy
 
 # Written by Ozan Türkyılmaz ozan.turkyilmaz@gmail.com
-# This script is in public domain.
+# This script is in public domain. If this is not legally possible
+# I grant anyone the right to use this work for any purpose, without any conditions,
+# unless such conditions are required by law.
 
 PRGNAM=ibus-anthy
-VERSION=${VERSION:-1.2.4}
+VERSION=${VERSION:-1.2.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
