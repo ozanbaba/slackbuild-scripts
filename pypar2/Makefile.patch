@@ -1,0 +1,18 @@
+--- Makefile	2007-04-18 21:55:18.000000000 +0300
++++ Makefile.sbo	2010-12-07 15:21:30.732113854 +0200
+@@ -2,13 +2,13 @@ INSTALL ?= install
+ MAKE ?= make
+ RM ?= rm
+ RMDIR ?= rmdir
+-prefix ?= /usr/local
++prefix ?= /usr
+ 
+ 
+ PREFIX = $(DESTDIR)$(prefix)
+ 
+ BINDIR = $(PREFIX)/bin
+-MANDIR = $(PREFIX)/share/man/man1
++MANDIR = $(PREFIX)/man/man1
+ DATADIR = $(PREFIX)/share/pypar2
+ SRCDIR = $(DATADIR)/src
+ PIXDIR = $(DATADIR)/pix

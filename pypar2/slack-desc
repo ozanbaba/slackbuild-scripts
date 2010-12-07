@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+       |-----handy-ruler------------------------------------------------------|
+pypar2: PyPar2 GUI for par2 commandline tools
+pypar2:
+pypar2: PyPar2 is a graphical front-end for par2 command line utility. It is 
+pypar2: written in Python using GTK+ and licensed under GPL. It is designed to 
+pypar2: be easy to use.
+pypar2:
+pypar2: http://pypar2.silent-blade.org/index.php?n=Main.HomePage
+pypar2:
+pypar2:
+pypar2:
+pypar2: 

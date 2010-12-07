@@ -1,0 +1,2 @@
+PyPar2 is a graphical front-end for par2 command line utility. It is written in Python using GTK+ and licensed under GPL. It is designed to be easy to use.
+PyPar2 needs par2cmdline, PyXML to run.  
