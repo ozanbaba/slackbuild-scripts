@@ -49,6 +49,7 @@ TMP=${TMP:-/tmp/Oz}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 MAKEDEP=${MAKEDEP:-/no}
+PREFIX=${PREFIX:-/usr}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -81,13 +82,13 @@ find . \
 
 
 # all libs are 32 bit and all builds are out of tree
-cd $OUTPUT/$PRGNAM
+cd $TMP/$PRGNAM
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 $WINE_GIT/configure \
-  --prefix=/usr \
-  --mandir=/usr/man \
-  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --prefix=$PREFIX \
+  --mandir=$PREFIX/man \
+  --docdir=$PREFIX/doc/$PRGNAM-$VERSION \
   --with-opengl \
   --build=$ARCH-slackware-linux
 
