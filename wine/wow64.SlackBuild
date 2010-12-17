@@ -71,6 +71,13 @@ mkdir -p $TMP $PKG $PKG2 $OUTPUT $SRC $BDIR $BDIR2
 cd $SRC
 tar xvf $CWD/wine-$VERSION.tar.bz2
 
+if [ -d $CWD/patch ]; then
+	cd wine-$VERSION
+	for i in $( ls $CWD/patch ); do
+		cat $CWD/patch/$i | patch -p1
+	done
+fi
+
 #Changing ownerships
 
 chown -R root:root .

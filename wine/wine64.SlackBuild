@@ -73,6 +73,13 @@ mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM $BDIR
 cd $BDIR
 tar xvf $CWD/wine-$VERSION.tar.?z*
 
+if [ -d $CWD/patch ]; then
+	cd wine-$VERSION
+	for i in $( ls $CWD/patch ); do
+		cat $CWD/patch/$i | patch -p1
+	done
+fi
+
 #Changing ownerships
 chown -R root:root .
 find . \
@@ -83,7 +90,7 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-$WINE_GIT/configure \
+$WINE_SRC/configure \
  --prefix=/usr \
  --enable-win64 \
  --libdir=/usr/lib64 \
