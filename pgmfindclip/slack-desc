@@ -9,9 +9,9 @@
 pgmfindclip: pgmfindclip A small tool for finding clipping borders automaticly
 pgmfindclip:
 pgmfindclip:
-pgmfindclip: Pgmfindclip is a simple program to find clipping borders automaticly
-pgmfindclip: for transcoding and/or cutting video files. It's written in C using 
-pgmfindclip: using standart C libraries.
+pgmfindclip: Pgmfindclip is a simple program to find borders to clip automaticly
+pgmfindclip: for transcoding movies with black borders. It's written in C using  
+pgmfindclip: standart C libraries. 
 pgmfindclip:
 pgmfindclip:
 pgmfindclip:
