@@ -1,0 +1,9 @@
+--- Makefile	2002-02-14 13:46:40.000000000 +0200
++++ Makefile.new	2010-12-22 13:08:56.618851209 +0200
+@@ -1,5 +1,5 @@
+ pgmfindclip: pgmfindclip.c
+-	gcc -Wall -o pgmfindclip pgmfindclip.c
++	gcc $(CFLAGS) -Wall -o pgmfindclip pgmfindclip.c
+ 
+ clean:
+ 	-rm pgmfindclip

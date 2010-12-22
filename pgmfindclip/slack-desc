@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+           |-----handy-ruler------------------------------------------------------|
+pgmfindclip: pgmfindclip A small tool for finding clipping borders automaticly
+pgmfindclip:
+pgmfindclip:
+pgmfindclip: Pgmfindclip is a simple program to find clipping borders automaticly
+pgmfindclip: for transcoding and/or cutting video files. It's written in C using 
+pgmfindclip: using standart C libraries.
+pgmfindclip:
+pgmfindclip:
+pgmfindclip:
+pgmfindclip:
+pgmfindclip:

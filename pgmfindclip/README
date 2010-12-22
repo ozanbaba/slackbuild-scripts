@@ -1,0 +1,4 @@
+Pgmfindclip tries to find a suitable clipping border for a series of 
+gray images. It is very useful to automatically extract clipping values 
+for transcoding a movie if the source frame is encoded with black bars.
+
