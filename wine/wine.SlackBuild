@@ -71,6 +71,8 @@ if [ -d $CWD/patch ]; then
 	for i in $( ls $CWD/patch ); do
 		cat $CWD/patch/$i | patch -p1
 	done
+	autoconf
+	cd ..
 fi
  
 chown -R root:root .
@@ -79,8 +81,7 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
-autoconf
-cd ..
+
 cd $PRGNAM
 
 # all libs are 32 bit and all builds are out of tree
