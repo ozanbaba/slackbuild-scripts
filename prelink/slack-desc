@@ -6,13 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
        |-----handy-ruler------------------------------------------------------|
-prelink:   Prelink - ELF prelinking utility to speed up dynamic linking.
+prelink: prelink (ELF prelinking utility)
 prelink:
-prelink: prelink is a program which modifies ELF shared libraries and ELF 
-prelink: dynamically linked binaries, so that the time which dynamic linker 
-prelink: needs for their relocation at startup significantly decreases and
-prelink: also due to fewer relocations the run-time memory consumption decreases
+prelink: prelink is a program which modifies shared ELF libraries and 
+prelink: dynamically linked ELF binaries so that the time the dynamic 
+prelink: linker needs for their relocation at startup is significantly 
+prelink: decreased.  Also, due to fewer relocations, the run-time 
+prelink: memory consumption of libraries/binaries is decreased.
 prelink:
-prelink:          http://people.redhat.com/jakub/prelink/
+prelink: Homepage: http://people.redhat.com/jakub/prelink/
 prelink:
 prelink:

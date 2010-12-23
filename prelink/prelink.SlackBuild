@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#Slackware build package for prelink
+# Slackware build package for prelink
 
 # Copyright 2010  Ozan Türkyılmaz İstanbul, TUR
 # All rights reserved.
@@ -27,17 +27,16 @@ VERSION=${VERSION:-20100106}
 BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 
-#Automatic ARCH delection from SlackBuild template
 if [ -z "$ARCH" ]; then
 	case "$( uname -m )" in
-		i?86) ARCH=1486 ;;
+		i?86) ARCH=i486 ;;
 		arm*) ARCH=arm ;;
 		*) ARCH=$( uname -m ) ;;
 	esac
 fi
 
 CWD=$(pwd)
-TPM=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -62,9 +61,9 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
-#Let's fix the insane folder name to sane one
 mv $PRGNAM $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
+
 chown -R root:root .
 find . \
 \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -72,8 +71,6 @@ find . \
 \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-
-#configure time
 CFLAGS="$SLKFLAGS" \
 CXXFLAGS="$SLKFLAGS" \
 ./configure \
@@ -84,43 +81,29 @@ CXXFLAGS="$SLKFLAGS" \
  --mandir=/usr/man \
  --build=$ARCH-slackware-linux
 
-#compile time
 make
-make install DESTDIR=$PKG
-
-#make docs
-cd doc
-make
-cd ..
-
-find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
- | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-#compress man pages
+make -C doc 
+make install-strip DESTDIR=$PKG
 
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlint $i ).gz $i.gz ; rm $i ; done
 
-#copy docs
+mkdir -p $PKG/etc
+cat $CWD/prelink.conf > $PKG/etc/prelink.conf.new
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
  AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO \
  $PKG/usr/doc/$PRGNAM-$VERSION
- cp -a ./doc/*.pdf $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-# Copy cron script
-cat $CWD/prelink > $PKG/usr/doc/$PRGNAM-$VERSION/prelink.cron
-# Copy optimal prelink-all script
-cat $CWD/prelink-all > $PKG/usr/doc/$PRGNAM-$VERSION/prelink-all
+cp doc/prelink.pdf $PKG/usr/doc/$PRGNAM-$VERSION
 
-#Copy default config file
-mkdir -p $PKG/etc
-cat $CWD/prelink.conf > $PKG/etc/prelink.conf.new
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/prelink.cron > $PKG/usr/doc/$PRGNAM-$VERSION/prelink.cron
+cat $CWD/prelink-all > $PKG/usr/doc/$PRGNAM-$VERSION/prelink-all
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
-#final step: make package
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
