@@ -1,0 +1,9 @@
+--- Makefile	2003-05-31 13:57:38.000000000 +0300
++++ Makefile.neq	2010-12-22 15:39:34.047819520 +0200
+@@ -1,5 +1,5 @@
+ mpglen: mpglen.c
+-	gcc -O4 -D_LARGEFILE64_SOURCE -D__FILE_OFFSET_BITS_64 -o mpglen mpglen.c
++	gcc $(CFLAGS) -O4 -D_LARGEFILE64_SOURCE -D__FILE_OFFSET_BITS_64 -o mpglen mpglen.c
+ 
+ clean:
+ 	rm mpglen
