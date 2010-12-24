@@ -100,6 +100,7 @@ cp doc/prelink.pdf $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 cat $CWD/prelink.cron > $PKG/usr/doc/$PRGNAM-$VERSION/prelink.cron
 cat $CWD/prelink-all > $PKG/usr/doc/$PRGNAM-$VERSION/prelink-all
+cat $CWD/prelink-undo > $PKG/usr/doc/$PRGNAM-$VERSION/prelink-undo
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
