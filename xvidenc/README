@@ -1,0 +1,7 @@
+Xvidenc is a shell script which makes it easy to encode DVDs, (S)VCDs
+or video files to the Xvid video format using MEncoder from the MPlayer
+project. 
+
+It needs a MEncoder complied agaist xvid. Default Slackware does not 
+suply one. One can bulid it using alinBOB's MPlayer Build script while 
+xvid is installed.

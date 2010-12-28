@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+       |-----handy-ruler------------------------------------------------------|
+xvidenc: xvidenc MEncoder wrapper script for xvid encoding
+xvidenc:
+xvidenc: Xvidenc is a simple interactive shell script for ripping S/VCD, DVDs 
+xvidenc: and encoding video files using MEncoder. Its target codec is xvid
+xvidenc:
+xvidenc:
+xvidenc: http://xvidenc.sourceforge.net/
+xvidenc:
+xvidenc:
+xvidenc:
+xvidenc:
