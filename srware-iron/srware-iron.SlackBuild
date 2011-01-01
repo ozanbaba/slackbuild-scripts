@@ -23,9 +23,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=srware-iron
-VERSION=${VERSION:-7.0.520.0}	# replace with version of program
+VERSION=${VERSION:-8.0.555.0}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}		# the "_SBo" is required
+TAG=${TAG:-_SBo}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
@@ -38,9 +38,9 @@ if [ -z "$ARCH" ]; then
 fi
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}	# For consistency's sake, use this
+TMP=${TMP:-/tmp/SBo}	
 PKG=$TMP/package-$PRGNAM
-OUTPUT=${OUTPUT:-/tmp}	# Drop the package in /tmp
+OUTPUT=${OUTPUT:-/tmp}	
 
 if [ "$ARCH" = "i486" ]; then
   TARSUFFIX=""
@@ -70,11 +70,12 @@ mkdir -p $PKG/opt
 mkdir -p $PKG/opt/srware
 mkdir -p $PKG/opt/srware/iron
 cp -r * $PKG/opt/srware/iron
+cp $CWD/srware-iron $PKG/opt/srware/iron
 
 mkdir -p $PKG/usr
 mkdir -p $PKG/usr/bin
 cd $PKG/usr/bin
-ln -s ../../opt/srware/iron/iron srware-iron
+ln -s ../../opt/srware/iron/srware-iron srware-iron
 ln -s ../../opt/srware/iron/iron iron
 
 # Strip binaries.
