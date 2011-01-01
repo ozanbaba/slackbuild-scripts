@@ -1,0 +1,7 @@
+h264enc is interactive shell script for riping and encoding S/VCD, DVDs
+and files using MEncoder into h264. It can salve the choises made by 
+User for later use (batchfiles).
+
+It needs MPlayer/MEncoder compiled agaist FAAC (AAC), LAME (MP3), lavc
+(AC3).  
+
