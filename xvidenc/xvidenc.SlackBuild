@@ -25,38 +25,16 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=xvidenc
-VERSION=${VERSION:-8.1.9}
+VERSION=${VERSION:-8.3.9}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
+ARCH=noarch
 
-# Automatically determine the architecture we're building on:
-if [ -z "$ARCH" ]; then
-  case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
-    arm*) ARCH=arm ;;
-    # Unless $ARCH is already set, use uname -m for all other archs:
-       *) ARCH=$( uname -m ) ;;
-  esac
-fi
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
-else
-  SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
-fi
 
 set -e # Exit on most errors
 
@@ -73,12 +51,14 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-#Install the script
-
+#Install
+#Make dirs
 mkdir -p $PKG/usr/bin
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 mkdir -p $PKG/usr/man/man1
+mkdir -p $PKG/install
 
+#Copy program
 cp xvidenc $PKG/usr/bin
 
 #And man page
@@ -91,10 +71,9 @@ cp -a doc/AUTHORS  doc/ChangeLog  doc/LICENSE  doc/README.encoding  \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/xvidenc.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/xvidenc.SlackBuild
 
-# Copy the slack-desc (and a custom doinst.sh if necessary) into ./install
-mkdir -p $PKG/install
+# Copy the slack-desc
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
-# Make the package; be sure to leave it in $OUTPUT
+# Make the package
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
