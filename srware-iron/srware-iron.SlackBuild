@@ -66,13 +66,14 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
-mkdir -p $PKG/opt
-mkdir -p $PKG/opt/srware
+
 mkdir -p $PKG/opt/srware/iron
 cp -r * $PKG/opt/srware/iron
 cp $CWD/srware-iron $PKG/opt/srware/iron
 
-mkdir -p $PKG/usr
+#We don't need this
+rm $PKG/opt/srware/iron/chrome-wrapper
+
 mkdir -p $PKG/usr/bin
 cd $PKG/usr/bin
 ln -s ../../opt/srware/iron/srware-iron srware-iron
