@@ -70,6 +70,7 @@ find . \
 mkdir -p $PKG/opt/srware/iron
 cp -r * $PKG/opt/srware/iron
 cp $CWD/srware-iron $PKG/opt/srware/iron
+chmod +x $PKG/opt/srware/iron/srware-iron
 
 #We don't need this
 rm $PKG/opt/srware/iron/chrome-wrapper
