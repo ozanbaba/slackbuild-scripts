@@ -60,6 +60,8 @@ mkdir -p $PKG/etc
 install -m 0644 script/bootchartd.conf $PKG/etc/bootchartd.conf.new
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+install -m 0644 $CWD/mkchartrd $PKG/usr/doc/$PRGNAM-$VERSION
+
 cp -a \
   ChangeLog COPYING INSTALL javadoc README* TODO \
     $PKG/usr/doc/$PRGNAM-$VERSION
