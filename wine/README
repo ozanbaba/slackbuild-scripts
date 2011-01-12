@@ -9,6 +9,8 @@ wine.SlackBuild will build only wine 32bit
 wow64.SLackBuild will build both wine compat 32bit and 64bit to run both 32bit
       and 64bit programs. 
 
-wine-compat32.SlackBuild will build wine compat 32 bit to be used with wine64. It needs wine64 builddir for working.
+wine-compat32.SlackBuild will build wine compat 32 bit to be used with wine64. 
+	It needs wine64 builddir as an argument to work.
 
-They all work with tarballs.
+They all work with tarballs. They all accept MAKEJOB=n for -jn and MAKEDEP=yes for
+	running make depend before make.

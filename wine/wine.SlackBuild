@@ -27,7 +27,7 @@
 PRGNAM=wine
 BUILD=${BUILD:-1}
 TAG=${TAG:-_Oz}
-PKGTYPE=${PKGTYPE:-txz}
+PKGTYPE=${PKGTYPE:-tgz}
 VERSION=${VERSION:-1.3.9}
 
 #automatic arch detection from SBo template
@@ -74,6 +74,8 @@ if [ -d $CWD/patch ]; then
 	autoconf
 	cd ..
 fi
+
+cd wine-$VERSION
  
 chown -R root:root .
 find . \
@@ -82,12 +84,11 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-cd $PRGNAM
 
 # all libs are 32 bit and all builds are out of tree
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-$TMP/wine-$VERSION/configure \
+./configure \
   --prefix=$PREFIX \
   --mandir=$PREFIX/man \
   --docdir=$PREFIX/doc/$PRGNAM-$VERSION \
