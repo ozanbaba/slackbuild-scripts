@@ -31,7 +31,7 @@ PRGNAM=wine-compat32
 BUILD=${BUILD:-1} #hot really used but still here for future needs.
 TAG=${TAG:-_Oz} #change it for something else If you distrube the packages
 MAKEJ=${MAKEJ:-1} #change it as you wish
-PKGTYPE=${PKGTYPE:-txz}
+PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic ARCH delection from SBo
 
@@ -53,6 +53,7 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
 MAKEDEP=${MAKEDEP:-no}
+MAKEJOB=${MAKEJOB:-1}
 
 set -e
 
@@ -71,20 +72,21 @@ else
 	LIBDIRSUFFIX=""
 fi
 
-rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM $BDIR
 cd $1
 WINE_GIT=$(pwd)
 
 cd $2
 BDIR64=$(pwd)
 
-cd $WINE_GIT
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM $BDIR
+
 
 #Saving ownerships for future recovery
 USER=$( ls -l $WINE_GIT/VERSION | awk '{ print $3 }' )
 GROUP=$( ls -l $WINE_GIT/VERSION | awk '{ print $4 }' )
 
+cd $WINE_GIT
 
 #Changing ownerships
 
@@ -108,7 +110,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make 
+make -j$MAKEJOB
 make install DESTDIR=$PKG
 
 #Strip the binaries

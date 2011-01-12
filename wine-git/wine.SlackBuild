@@ -29,7 +29,7 @@
 PRGNAM=wine
 BUILD=${BUILD:-1}
 TAG=${TAG:-_Oz}
-PKGTYPE=${PKGTYPE:-txz}
+PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic arch detection from SBo template
 
@@ -50,6 +50,7 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 MAKEDEP=${MAKEDEP:-/no}
 PREFIX=${PREFIX:-/usr}
+MAKEJOB=${MAKEJOP:-1}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -96,7 +97,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make 
+make -j$MAKEJOB
 make install DESTDIR=$PKG
 
 

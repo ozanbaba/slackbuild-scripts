@@ -58,6 +58,9 @@ OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
 BDIR2=$TMP/$PRGNAM2
 MAKEDEP=${MAKEDEP:-no}
+MAKEJOB=${MAKEJOB:-1}
+
+
 
 set -e
 
@@ -77,6 +80,7 @@ fi
 
 rm -rf $PKG $PKG2
 mkdir -p $TMP $PKG $PKG2 $OUTPUT $TMP/$PRGNAM $BDIR $BDIR2
+
 cd $1
 WINE_GIT=$(pwd)
 
@@ -110,7 +114,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make 
+make -j$MAKEJOB
 make install DESTDIR=$PKG
 
 
@@ -155,7 +159,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make 
+make -j$MAKEJOB
 make install DESTDIR=$PKG2
 
 #Stript the binaries
