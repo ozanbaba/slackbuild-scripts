@@ -1,4 +1,4 @@
-Template scripts and support files for SlackBuilds.org
-
-http://slackbuilds.org/templates/
-
+Parti-all is consists of thee interconnected application and library for 
+X Window systems. xpra is a screen application for X, wimpiggy A Python
+library for writing EWMH-compliant, composing window managers and a parti
+a window manager implented using wimpiggy.
