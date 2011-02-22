@@ -88,6 +88,8 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man \
   --enable-shared \
   --with-clang=./tools/clang \
+  --disable-assertions \
+  --enable-pic \
   --build=$ARCH-slackware-linux
 
 # Compile the application and install it into the $PKG directory
@@ -100,10 +102,9 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
 
 # Compress man pages
 mkdir $PKG/usr/man
-mv -r $PKG/usr/share/man/man1 $PKG/usr/man
+mv $PKG/usr/share/man $PKG/usr
 
-rmdir $PKG/usr/share/man
-rmdir $PKG/usr/share
+rmdir $PKG/usr/share || exit 1
 
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
@@ -113,12 +114,16 @@ mkdir -p $PKG/usr/doc/$PRGNAM2-$VERSION
 cp -a CREDITS.TXT LICENSE.TXT README.txt ModuleInfo.txt \
     $PKG/usr/doc/$PRGNAM2-$VERSION
 mv $PKG/usr/docs/llvm/* $PKG/usr/doc/$PRGNAM2-$VERSION
-cat $CWD/$PRGNAM2.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM2.SlackBuild
 
-# Copy the slack-desc (and a custom doinst.sh if necessary) into ./install
+rmdir $PKG/usr/docs/llvm || exit 1
+rmdir $PKG/usr/docs || exit 1
+
+cat $CWD/$PRGNAM2.SlackBuild > $PKG/usr/doc/$PRGNAM2-$VERSION/$PRGNAM2.SlackBuild
+
+# Copy the slack-desc ./install
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 # Make the package; be sure to leave it in $OUTPUT
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM2-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
