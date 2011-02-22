@@ -28,7 +28,6 @@
 PRGNAM=wine64
 BUILD=${BUILD:-1} #hot really used but still here for future needs.
 TAG=${TAG:-_Oz} #change it for something else If you distrube the packages
-MAKEJ=${MAKEJ:-1} #change it as you wish
 PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic ARCH delection from SBo
@@ -120,7 +119,7 @@ mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
  $WINE_GIT/ANNOUNCE $WINE_GIT/AUTHORS $WINE_GIT/COPYING.LIB $WINE_GIT/LICENSE* \
  $WINE_GIT/README $WINE_GIT/VERSION $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/$PRGNAM-SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 #Copying /install
 mkdir -p $PKG/install
