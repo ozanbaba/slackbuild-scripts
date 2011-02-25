@@ -22,7 +22,8 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# modifed for Wine-git tree by Ozan Türkyılmaz
+# modifed for Wine-git tree by Ozan Türkyılmaz.
+# Run it as WINEGIT=/path/git/tree ./wine.SlackBuild
 
 
 
@@ -41,16 +42,19 @@ if [ -z "$ARCH" ]; then
 	esac
 fi
 
-set -u
-VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
+if [ -z "$WINEGIT" ]; then
+	echo Please specify WINEGIT=/path/git/tree
+	exit 0
+fi
+
+VERSION="$( cat $WINEGIT/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/Oz}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-MAKEDEP=${MAKEDEP:-/no}
+MAKEDEP=${MAKEDEP:-no}
 PREFIX=${PREFIX:-/usr}
-MAKEJOB=${MAKEJOP:-1}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -67,7 +71,7 @@ set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM
-cd $1
+cd $WINEGIT
 WINE_GIT=$(pwd)
 
 # let's save ownerships
@@ -97,7 +101,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make -j$MAKEJOB
+make
 make install DESTDIR=$PKG
 
 

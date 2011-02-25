@@ -22,15 +22,14 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# This script is for building from a git tree or source tree. For building tar balls
-# use the script at SlackBuilds.org. 
-# You need to first build wine64 and then pass its path to the script with source tree.
-# wine-compat32.SlackBuild $WINE_GIT_TREE $WINE64_BUILD_DIR
+# This script is for building from a git tree or source tree. F
+# You need to first build wine64 and then pass its path build dir to the script
+# with Wine Git tree. 
+# Run it as $WINEGIT=/path/git/tree $BDIR64=/path/wine64/build/dir ./wine-compat32.SlackBuild
 
 PRGNAM=wine-compat32
-BUILD=${BUILD:-1} #hot really used but still here for future needs.
-TAG=${TAG:-_Oz} #change it for something else If you distrube the packages
-MAKEJ=${MAKEJ:-1} #change it as you wish
+BUILD=${BUILD:-1}
+TAG=${TAG:-_Oz}
 PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic ARCH delection from SBo
@@ -43,9 +42,16 @@ if [ -z "$ARCH" ]; then
 	esac
 fi
 
-set -u #be careful with unbound variables
+if [ -z "$WINEGIT" ]; then
+	echo Please specify WINEGIT=/path/git/tree
+	exit 0
+fi
+if [ -z "$BDIR64" ]; then
+	echo Please specify BDIR64=/path/wine64/build/dir
+	exit 0
+fi
 
-VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
+VERSION="$( cat $WINEGIT/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/Oz}
@@ -53,7 +59,6 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
 MAKEDEP=${MAKEDEP:-no}
-MAKEJOB=${MAKEJOB:-1}
 
 set -e
 
@@ -72,10 +77,10 @@ else
 	LIBDIRSUFFIX=""
 fi
 
-cd $1
+cd $WINEGIT
 WINE_GIT=$(pwd)
 
-cd $2
+cd $BDIR64
 BDIR64=$(pwd)
 
 rm -rf $PKG
@@ -110,7 +115,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make -j$MAKEJOB
+make
 make install DESTDIR=$PKG
 
 #Strip the binaries

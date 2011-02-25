@@ -22,12 +22,12 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# This script is for building from a git tree or source tree. For building tar balls
-# use the script at SlackBuilds.org. 
+# This script is for building from a git tree or source tree. 
+# Run it as WINEGIT=/path/git/tree ./wine64.SlackBuild
 
 PRGNAM=wine64
-BUILD=${BUILD:-1} #hot really used but still here for future needs.
-TAG=${TAG:-_Oz} #change it for something else If you distrube the packages
+BUILD=${BUILD:-1}
+TAG=${TAG:-_Oz}
 PKGTYPE=${PKGTYPE:-tgz}
 
 #automatic ARCH delection from SBo
@@ -40,9 +40,12 @@ if [ -z "$ARCH" ]; then
 	esac
 fi
 
-set -u #be careful with unbound variables
+if [ -z "$WINEGIT" ]; then
+	echo Please specify WINEGIT=/path/git/tree
+	exit 0
+fi
 
-VERSION="$( cat $1/VERSION | awk '{ print $3}' )"
+VERSION="$( cat $WINEGIT/VERSION | awk '{ print $3}' )"
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/Oz}
@@ -50,7 +53,6 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
 MAKEDEP=${MAKEDEP:-no}
-MAKEJOB=${MAKEJOB:-1}
 
 set -e
 
@@ -71,7 +73,7 @@ fi
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM $BDIR
-cd $1
+cd $WINEGIT
 WINE_GIT=$(pwd)
 
 #Saving ownerships for future recovery
@@ -103,7 +105,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make -j$MAKEJOB
+make
 make install DESTDIR=$PKG
 
 #Strip the binaries
