@@ -1,16 +1,21 @@
 Wine is an Open Source implementation of the Windows API on top of X and Unix.
 
-This requires fontforge and webcore-fonts.
+This requires fontforge and webcore-fonts frmo SBo.
 
-wine64.SLackBuild will build only wine 64bit
+wine64.SLackBuild will build only wine 64bit. 
+	run it as WINEGIT=/path/to/wine-git sh wine64.Slackbuid
 
 wine.SlackBuild will build only wine 32bit
+	run it as WINEGIT=/path/to/wine-git sh wine.SlackBuild
 
 wow64.SLackBuild will build both wine compat 32bit and 64bit to run both 32bit
-      and 64bit programs. 
+	and 64bit programs. 
+	run it as WINEGIT=/path/to/wine-git
 
-wine-compat32.SlackBuild will build wine compat 32bit to ggo with wine64. It needs
-	  64bit build dir as second argument to work. 
+wine-compat32.SlackBuild will build wine compat 32bit to go with wine64. It needs 
+	64bit build dir as second argument to work. 
+	run it as WINEGIT=/path/to/wine-it BDIR64=/path/to/ sh wow64.SlackBuild
+	  
 
-All of the scripts can use MAKEDEP=yes for running make depend before make and
-MAKEJOB=n for make -jn. 
+All of the scripts by default does not run make depend. To run run make depend
+	pass MAKEDEP=yes to the script as well.
