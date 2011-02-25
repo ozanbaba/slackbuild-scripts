@@ -45,7 +45,7 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 MAKEDEP=${MAKEDEP:-/no}
 PREFIX=${PREFIX:-/usr}
-MAKEJOB${MAKEJOB:-1}
+
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -66,10 +66,11 @@ mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM
 cd $TMP
 tar xvf $CWD/wine-$VERSION.tar.?z*
 
+#If a patch fails, we ignore the error
 if [ -d $CWD/patch ]; then
 	cd wine-$VERSION
 	for i in $( ls $CWD/patch ); do
-		cat $CWD/patch/$i | patch -p1
+		cat $CWD/patch/$i | patch -p1 || true
 	done
 	autoconf
 	cd ..
@@ -84,11 +85,12 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-
+mkdir build
+cd build
 # all libs are 32 bit and all builds are out of tree
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-./configure \
+../configure \
   --prefix=$PREFIX \
   --mandir=$PREFIX/man \
   --docdir=$PREFIX/doc/$PRGNAM-$VERSION \
@@ -99,7 +101,7 @@ if [ "$MAKEDEP" = "yes" ]; then
 make depend
 fi
 
-make -j${MAKEJOB}
+make
 make install DESTDIR=$PKG
 
 
