@@ -24,7 +24,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=libebml
-VERSION=${VERSION:-1.0.0}
+VERSION=${VERSION:-1.2.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -72,9 +72,9 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make -C make/linux sharedlib \
+make -C make/linux sharedlib staticlib \
      prefix=/usr libdir=/usr/lib${LIBDIRSUFFIX}
-make -C make/linux install_sharedlib install_headers \
+make -C make/linux install_sharedlib install_staticlib install_headers \
      prefix=$PKG/usr libdir=$PKG/usr/lib${LIBDIRSUFFIX}
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
