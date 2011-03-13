@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh 
 
 # Slackware build script for libebml
 #
@@ -40,6 +40,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
+STATICLIB=${STATICLIB:-no}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -56,6 +57,10 @@ else
 fi
 
 set -e
+if [ "$STATICLIB" = "yes" ]; then
+	MAKESTATICLIB="staticlib"
+	MAKESTATICLIBINSTALL="install_staticlib"
+fi
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -72,9 +77,9 @@ find . \
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make -C make/linux sharedlib staticlib \
+make -C make/linux sharedlib $MAKESTATICLIB \
      prefix=/usr libdir=/usr/lib${LIBDIRSUFFIX}
-make -C make/linux install_sharedlib install_staticlib install_headers \
+make -C make/linux install_sharedlib $MAKESTATICLIBINSTALL install_headers \
      prefix=$PKG/usr libdir=$PKG/usr/lib${LIBDIRSUFFIX}
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
