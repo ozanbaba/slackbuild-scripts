@@ -27,7 +27,7 @@ PRGNAM=llvm
 PRGNAM2=clang
 VERSION=${VERSION:-2.8}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_Oz}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then

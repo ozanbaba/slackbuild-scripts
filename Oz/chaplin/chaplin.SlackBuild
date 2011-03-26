@@ -26,7 +26,7 @@
 PRGNAM=chaplin
 VERSION=${VERSION:-1.10}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_Oz}
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then

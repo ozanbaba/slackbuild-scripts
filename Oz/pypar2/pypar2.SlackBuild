@@ -25,7 +25,7 @@
 PRGNAM=pypar2			
 VERSION=${VERSION:-1.4}	
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}		# the "_SBo" is required
+TAG=${TAG:-_Oz}		# the "_SBo" is required
 
 # Automatically determine the architecture we're building on:
 if [ -z "$ARCH" ]; then
