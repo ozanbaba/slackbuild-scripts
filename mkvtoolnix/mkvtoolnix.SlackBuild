@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -x
 # Slackware build script for mkvtoolnix
 
 # Copyright 2008,2009,2010. Andrew Strong (http://www.andrews-corner.org)
@@ -59,9 +59,9 @@ fi
 set -e
 
 if [ "$QTGUI" = "yes" ]; then
-	QTCONFIG="--enable-"
+	QTCONFIG="enable-"
 else
-	QTCONFIG="--disable-"
+	QTCONFIG="disable-"
 fi
 
 rm -rf $PKG
@@ -88,7 +88,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man \
   --localstatedir=/var \
   --enable-gui \
-  --$(QTCONFIG)qt \
+  --${QTCONFIG}qt \
   --enable-wxwidgets \
   --with-boost
 
