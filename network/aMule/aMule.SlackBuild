@@ -2,6 +2,7 @@
 # Slackware build script for aMule
 # Written by Iskar Enev (<iskar.enev[@]gmail.com>)
 # Modified by the SlackBuilds.org project
+# Maintained by Ozan Türkyılmaz ozan.turkyilmaz@gmial.com
 
 PRGNAM=aMule
 VERSION=${VERSION:-2.2.6}

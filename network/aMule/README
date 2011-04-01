@@ -3,7 +3,7 @@ wxWidgets class library. It was originally forked from the xMule project,
 which in turn was forked from the lMule project. This is turn was the
 first fork of eMule to run nativly on Linux and other Unix-like systems.
 
-This requires wxGTK and cryptopp.
+This requires wxPython/wxGTK and cryptopp.
 
 It was reported that aMule doesn't work very well (or at all) with 
 cryptopp 5.6.0, so version 5.5.2 is recommended instead (you can build
