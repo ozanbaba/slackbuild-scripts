@@ -5,6 +5,18 @@ first fork of eMule to run nativly on Linux and other Unix-like systems.
 
 This requires wxPython/wxGTK and cryptopp.
 
+You can build optimal features of aMule with following variables;
+
+DAEMON=yes Creates amuled
+CMD=yes Creates commandline client
+WEBSERVER=yes Creates webserver for remote control
+ALC=yes Creates aLinkCreator GUI version
+ALCC=yes Creates aLinkCreator CLI version
+XAS=yes Installs xChat statistic plugin
+GEOIP=yes Builds with GeoIP library support (needs GeoIP)
+MMAP=yes Uses mmap
+OPTIMIZE=no Don't use code optimizations
+
 It was reported that aMule doesn't work very well (or at all) with 
-cryptopp 5.6.0, so version 5.5.2 is recommended instead (you can build
-version 5.2.2 using the same build script for cryptopp-5.6.0).
+cryptopp 5.6.0, so if you face random crashes in aMule then try downgrading
+cryptopp to 5.2.2. Script at SBo can be used for building cryptopp 5.2.2. 
