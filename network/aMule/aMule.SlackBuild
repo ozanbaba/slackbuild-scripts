@@ -133,7 +133,6 @@ CXXFLAGS="$SLKCFLAGS" \
   --$AMULE_ALC-alc \
   --$AMULE_ALCC-alcc \
   --$AMULE_XAS-xas \
-  --$AMULE_PLASMAMULE-plasmamule \
   --$AMULE_GEOIP-geoip \
   --$AMULE_MMAP-mmap \
   --$AMULE_OPTIMIZE-optimize \
