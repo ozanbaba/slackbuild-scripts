@@ -3,7 +3,7 @@
 # Written by Iskar Enev (<iskar.enev[@]gmail.com>)
 # Modified by the SlackBuilds.org project
 # Maintained by Ozan Türkyılmaz ozan.turkyilmaz@gmial.com
-set -x
+
 PRGNAM=aMule
 VERSION=${VERSION:-2.3.1rc1}
 BUILD=${BUILD:-1}
@@ -46,6 +46,7 @@ XAS=${XAS:-no}
 GEOIP=${GEOIP:-no}
 MMAP=${MMAP:-no}
 OPTIMIZE=${OPTIMIZE:-yes}
+PLASMAMULE=${PLASMAMULE:-no}
 
 if [ "$DAEMON" = "yes" ]; then 
   AMULE_DAEMON="enable"
@@ -101,6 +102,12 @@ if [ "$OPTIMIZE" = "yes" ]; then
   AMULE_OPTIMIZE="disable"
 fi
 
+if [ "$PLASMAMULE" = "yes" ]; then
+  AMULE_PLASMAMULE="enable"
+  else
+  AMULE_PLASMAMULE="disable"
+fi
+
 set -e
 
 rm -rf $PKG
@@ -135,6 +142,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --$AMULE_XAS-xas \
   --$AMULE_GEOIP-geoip \
   --$AMULE_MMAP-mmap \
+  --$AMULE_PLASMAMULE-plasmamule \
   --$AMULE_OPTIMIZE-optimize \
   --build=$ARCH-slackware-linux
 
