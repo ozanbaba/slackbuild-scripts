@@ -1,0 +1,7 @@
+Portable SDK for UPnP Devices is 100% compatable fork of Linux SDK for
+UPnP. It is developed with more open to commuminity approuch. It is widely
+used for UPnP support in Open Source programs.
+
+Script has two configs for building
+STATIC=yes Building static labraries
+IPV6=yes Building IPv6 support
