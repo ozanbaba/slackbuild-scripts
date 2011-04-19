@@ -1,2 +1,4 @@
 Pcc-libs is a fast and small C compiler library from pcc. It is dates back
 to 70s. It is rewrited to meet modern needs.
+
+It is advised to install pcc-libs before pcc.
