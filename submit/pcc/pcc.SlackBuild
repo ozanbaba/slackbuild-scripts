@@ -4,7 +4,7 @@
 
 # Written by Ozan Türkyılmaz ozan.turkyilmaz@gmail.com
 
-# Copyright 2010 Ozan Türkyılmaz İstanbul, TUR
+# Copyright 2011 Ozan Türkyılmaz İstanbul, TUR
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,7 +25,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=pcc
-VERSION=${VERSION:-1.0.1.BETA-20110405}
+VERSION=${VERSION:-1.0.1}
+DATE=${DATE:-20110405} # snapshot date
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -64,8 +65,8 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tgz
-cd $PRGNAM-1.0.1.BETA
+tar xvf $CWD/$PRGNAM-$VERSION.BETA-$DATE.tgz
+cd $PRGNAM-$VERSION.BETA
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -99,9 +100,6 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 
 # Copy program documentation into the package
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-#cp -a \
-#   \
-#  $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 # Copy the slack-desc

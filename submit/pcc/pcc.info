@@ -1,5 +1,5 @@
 PRGNAM="pcc"
-VERSION="1.0.1.BETA-20110405"
+VERSION="1.0.1"
 HOMEPAGE="http://pcc.ludd.ltu.se/"
 DOWNLOAD="ftp://pcc.ludd.ltu.se/pub/pcc-beta/pcc-1.0.1.BETA-20110405.tgz"
 MD5SUM="3942cf4d2ca3c78bff820bd24ade49c2"
