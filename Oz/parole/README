@@ -1,0 +1,6 @@
+Parole is simple but modern media player that fits well in Xfce DE. It
+uses plugin based system and Gstreamer framework. It can play local files,
+DVD/CD and live streams. 
+
+Plugin API documentation can be build with HTML=yes. Alternatively Pdf 
+documentation can be built with PDF=yes. 
