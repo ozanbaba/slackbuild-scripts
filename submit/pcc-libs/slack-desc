@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+        |-----handy-ruler------------------------------------------------------|
+pcc-libs: pcc-libs (Portable C Compiler)
+pcc-libs:
+pcc-libs: Pcc is a historic and fast C compiler from BSD people. It was first 
+pcc-libs: created by Stephen C. Johnson. It is updated to modern days by small
+pcc-libs: group of volunters. 
+pcc-libs:
+pcc-libs: This is pcc-libs needed for pcc to work.
+pcc-libs:
+pcc-libs:
+pcc-libs:
+pcc-libs:
