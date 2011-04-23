@@ -64,7 +64,7 @@ set -e # Exit on most errors
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
+rm -rf $PRGNAM-$VERSION.BETA
 tar xvf $CWD/$PRGNAM-$VERSION.BETA-$DATE.tgz
 cd $PRGNAM-$VERSION.BETA
 chown -R root:root .
