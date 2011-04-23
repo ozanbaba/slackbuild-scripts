@@ -26,7 +26,7 @@
 
 PRGNAM=pcc-libs	
 VERSION=${VERSION:-1.0.1}
-DATE=${DATE:-20110405} # this is date of the snapshot
+DATE=${DATE:-20110423} # this is date of the snapshot
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -44,6 +44,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
+PCC=${PCC:-no}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -73,7 +74,25 @@ find . \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
+if [ "$PCC" = "no" ]; then
 
+CC=gcc \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libexecdir=/usr/lib${LIBDIRSUFFIX}/pcc/$ARCH-pc-linux-gnu/1.1.0.BETA/libexec \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --build=$ARCH-slackware-linux
+
+else
+
+CC=pcc \
+CPPFLAGS="-I`pwd`/libpcc/include/ -I`pwd`/libsoftfloat/arch/i386/ -I`pwd`/libsoftfloat/" \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
@@ -84,6 +103,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
+fi
 
 # Compile the application and install it into the $PKG directory
 make

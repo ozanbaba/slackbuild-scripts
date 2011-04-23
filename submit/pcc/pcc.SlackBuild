@@ -26,7 +26,7 @@
 
 PRGNAM=pcc
 VERSION=${VERSION:-1.0.1}
-DATE=${DATE:-20110405} # snapshot date
+DATE=${DATE:-20110423} # snapshot date
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -44,6 +44,7 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
+PCC=${PCC:-no}
 
 if [ "$ARCH" = "i486" ]; then
   SLKCFLAGS="-O2 -march=i486 -mtune=i686"
@@ -74,17 +75,36 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-# Your application will probably need different configure flags;
+if [ "$PCC" = "no" ]; then
+
+CC=gcc \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --prefix=/usr \
+  --libexecdir=/usr/lib/pcc/$ARCH-pc-linux-gnu/1.1.0.BETA/libexec \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --mandir=/usr/man \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
+  
+else 
+
+CC=pcc \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+./configure \
+  --prefix=/usr \
+  --libexecdir=/usr/lib${LIBDIRSUFFIX}/pcc/$ARCH-pc-linux-gnu/1.1.0.BETA/libexec \
+  --libdir=/usr/lib${LIBDIRSUFFIX} \
+  --sysconfdir=/etc \
+  --localstatedir=/var \
+  --mandir=/usr/man \
+  --docdir=/usr/doc/$PRGNAM-$VERSION \
+  --build=$ARCH-slackware-linux
+fi
 
 # Compile the application and install it into the $PKG directory
 make
@@ -97,6 +117,10 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
 # Compress man pages
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+# Move ccp.1.gz so it won't override system cpp man page.
+mkdir $PKG/usr/man/man7
+mv $PKG/usr/man/man1/cpp.1.gz $PKG/usr/man/man7/cpp.7.gz
 
 # Copy program documentation into the package
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
