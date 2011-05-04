@@ -4,6 +4,7 @@
 
 # Written by João Felipe Santos (joao.eel@gmail.com)
 # Copyright (c) 2010 João Felipe Santos
+# Copyright (c) 2011 Ozan Türkyılmaz
 # Maintained by Ozan Türkyılmaz <ozan.turkyilmaz@gmail.com>
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -61,9 +62,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf tbb30_20101215ossoss
-tar xvf $CWD/tbb30_20101215oss_src.tgz
-cd tbb30_20101215oss
+rm -rf tbb$(echo $VERSION | sed 's/\.//')oss
+tar xvf $CWD/tbb$(echo $VERSION | sed 's/\.//')_src.tgz
+cd tbb$(echo $VERSION | sed 's/\.//')
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
