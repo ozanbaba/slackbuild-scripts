@@ -90,7 +90,7 @@ find . \
 cd $TMP/$PRGNAM
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-$WINE_GIT/configure \
+/bin/ash $WINE_GIT/configure \
   --prefix=$PREFIX \
   --mandir=$PREFIX/man \
   --docdir=$PREFIX/doc/$PRGNAM-$VERSION \

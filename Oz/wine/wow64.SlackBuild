@@ -95,7 +95,7 @@ find . \
 cd $BDIR 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-$WINE_SRC/configure \
+/bin/ash $WINE_SRC/configure \
  --prefix=/usr \
  --enable-win64 \
  --mandir=/usr/man \

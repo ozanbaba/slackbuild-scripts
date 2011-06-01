@@ -105,7 +105,7 @@ find . \
 cd $BDIR 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-$WINE_GIT/configure \
+/bin/ash $WINE_GIT/configure \
  --prefix=/usr \
  --libdir=/usr/lib \
  --with-wine64=$BDIR64 \

@@ -99,7 +99,7 @@ mkdir -p build
 cd build 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-../configure \
+/bin/ash ../configure \
  --prefix=/usr \
  --libdir=/usr/lib \
  --with-wine64=$BDIR64 \

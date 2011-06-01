@@ -93,7 +93,7 @@ cd build
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-../configure \
+/bin/ash ../configure \
  --prefix=/usr \
  --enable-win64 \
  --libdir=/usr/lib64 \
