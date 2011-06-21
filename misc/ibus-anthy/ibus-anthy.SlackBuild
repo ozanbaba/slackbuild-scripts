@@ -8,7 +8,7 @@
 # unless such conditions are required by law.
 
 PRGNAM=ibus-anthy
-VERSION=${VERSION:-1.2.5}
+VERSION=${VERSION:-1.2.6}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -18,7 +18,7 @@ if [ -z "$ARCH" ]; then
 	case "$( uname -m )" in
 		i?86) ARCH=i486 ;;
 		arm*) ARCH=arm ;;
-		#if ARCH is not set already, use uname -m 
+		#if ARCH is not set already, use uname -m
 		*) ARCH=$( uname -m ) ;;
 	esac
 fi
@@ -38,7 +38,7 @@ elif [ "$ARCH" = "x86_64" ]; then
   SLKCFLAGS="-O2 -fPIC"
   LIBDIRSUFFIX="64"
 else #for rest of the arches
-  SLKCFLAGS="-O2" 
+  SLKCFLAGS="-O2"
   LIBDIRSUFFIX=""
 fi
 set -e # Exit on most errors
