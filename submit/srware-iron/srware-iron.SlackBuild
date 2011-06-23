@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=srware-iron
-VERSION=${VERSION:-10.0.650.0}
+VERSION=${VERSION:-11.0.700.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -96,6 +96,9 @@ cat $CWD/srware-iron.desktop > $PKG/usr/share/applications/srware-iron.desktop
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+#link libpam to iron's dir.
+ln -s ../../../opt/google/chrome/libpam.so.0 libpam.so.0
 
 # Make the package
 cd $PKG
