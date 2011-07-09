@@ -28,7 +28,7 @@ PRGNAM=wine
 BUILD=${BUILD:-1}
 TAG=${TAG:-_Oz}
 PKGTYPE=${PKGTYPE:-tgz}
-VERSION=${VERSION:-1.3.21}
+VERSION=${VERSION:-1.3.22}
 
 #automatic arch detection from SBo template
 if [ -z "$ARCH" ]; then
