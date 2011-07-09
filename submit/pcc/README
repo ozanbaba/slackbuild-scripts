@@ -1,5 +1,0 @@
-Pcc is fast and portable C compiler dating back to BSD.
-You can compile Pcc with itself if you installed pcc before hand. Pass 
-PCC=yes to script and it will use pcc. You need to install pcc-libs for 
-that to work
-
