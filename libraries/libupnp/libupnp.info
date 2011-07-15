@@ -1,4 +1,4 @@
-PRGNAM="linupnp"
+PRGNAM="libupnp"
 VERSION="1.6.13"
 HOMEPAGE="http://pupnp.sourceforge.net/"
 DOWNLOAD="http://sourceforge.net/projects/pupnp/files/pupnp/libUPnP%201.6.13/libupnp-1.6.13.tar.bz2"
