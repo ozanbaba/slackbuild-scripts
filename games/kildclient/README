@@ -1,4 +1,5 @@
-Template scripts and support files for SlackBuilds.org
+KildClient is a MUD/MU* Client with Perl scripting capabilities using
+GTK+ Widget Library. It can run Perl functions and statements at any
+given time. It has extensive support for ANSI colour, MCCP, etc.
 
-http://slackbuilds.org/templates/
-
+locale-gettext is run time dependecy.
