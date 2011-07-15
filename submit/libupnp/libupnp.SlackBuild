@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 # Slackware build script for libupnp
 
 # Written by Ozan Türkyılmaz ozan.turkyilmaz@gmail.com	
