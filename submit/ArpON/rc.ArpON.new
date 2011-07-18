@@ -1,0 +1,58 @@
+#!/bin/sh
+
+#Configure method for determining the protection algorithms
+#SARPI is for static networks, DARPI is for dynamic networks
+#And HARPI is for hybrid networks (both static and dynamic)
+
+METHOD=HARPI
+
+start(){
+	echo Starting ArpON
+	if [ -e /var/run/arpon.pid ]; then
+		rm /var/run/arpon.pid
+	fi
+	
+	if [ "$METHOD" = "DARPI" ]; then
+		/sbin/arpon --darpi --pid-file /var/run/arpon.pid -q --log-file /var/log/arpon.log -o 2>&1 > /dev/null 
+	fi
+
+	if [ "$METHOD" = "SARPI" ]; then
+		/sbin/arpon --sarpi --pid-file /var/run/arpon.pid -q --log-file /var/log/arpon.log -o 2>&1 > /dev/null
+	fi
+
+	if [ "$METHOD" = "HARPI" ]; then
+		/sbin/arpon --harpi --pid-file /var/run/arpon.pid -q --log-file /var/log/arpon.log -o 2>&1 > /dev/null
+	fi
+}
+
+stop(){
+	if [ -e /var/run/arpon.pid ]; then
+		kill -s term $( cat /var/run/arpon.pid )
+	fi
+}
+
+restart(){
+	if [ -e /var/run/arpon.pid ]; then
+		kill -s term $( cat /var/rub/arpon.pid )
+	fi
+	start
+}
+
+info(){
+	echo Usage: rc.ArpON start, stop, restart
+
+}
+case $1 in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		restart
+		;;
+	*)
+		info
+		;;
+esac
