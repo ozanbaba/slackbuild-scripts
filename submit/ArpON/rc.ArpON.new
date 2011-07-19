@@ -13,15 +13,15 @@ start(){
 	fi
 	
 	if [ "$METHOD" = "DARPI" ]; then
-		/sbin/arpon --darpi --pid-file /var/run/arpon.pid -q --log-file /var/log/arpon.log -o 2>&1 > /dev/null 
+		/sbin/arpon --darpi --pid-file /var/run/arpon.pid -q -g --log-file /var/log/arpon.log -o 2>&1 > /dev/null 
 	fi
 
 	if [ "$METHOD" = "SARPI" ]; then
-		/sbin/arpon --sarpi --pid-file /var/run/arpon.pid -q --log-file /var/log/arpon.log -o 2>&1 > /dev/null
+		/sbin/arpon --sarpi --pid-file /var/run/arpon.pid -q -g --log-file /var/log/arpon.log -o 2>&1 > /dev/null
 	fi
 
 	if [ "$METHOD" = "HARPI" ]; then
-		/sbin/arpon --harpi --pid-file /var/run/arpon.pid -q --log-file /var/log/arpon.log -o 2>&1 > /dev/null
+		/sbin/arpon --harpi --pid-file /var/run/arpon.pid -q -g --log-file /var/log/arpon.log -o 2>&1 > /dev/null
 	fi
 }
 
