@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------------|
+wine-debug: wine (Wine Is Not an Emulator)
+wine-debug:
+wine-debug: Wine is an Open Source implementation of the Windows API
+wine-debug: on top of X and Unix. 
+wine-debug:
+wine-debug: Homepage: http://www.winehq.com/
+wine-debug:
+wine-debug: This is debug build of Wine. It confits with normal Wine Packages.  
+wine-debug:
+wine-debug:
+wine-debug:

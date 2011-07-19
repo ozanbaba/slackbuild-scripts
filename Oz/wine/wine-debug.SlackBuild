@@ -1,0 +1,125 @@
+#!/bin/sh
+
+# Slackware build script for wine
+
+# Copyright 2006-2009  Robby Workman  Northport, AL, USA
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Modified by Ozan Türkyılmaz
+
+PRGNAM=wine
+BUILD=${BUILD:-1}
+TAG=${TAG:-_Oz}
+PKGTYPE=${PKGTYPE:-tgz}
+VERSION=${VERSION:-1.3.22}
+
+#automatic arch detection from SBo template
+if [ -z "$ARCH" ]; then
+	case "$( uname -m )" in
+		i?86) ARCH=i486 ;;
+		arm*) ARCH=arm ;;
+		*) ARCH=$( uname -m ) ;;
+	esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/Oz}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+MAKEDEP=${MAKEDEP:-/no}
+PREFIX=${PREFIX:-/usr}
+
+
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-g -O0"
+elif [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-g -O0"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-g -O0 -fPIC"
+else
+  SLKCFLAGS="-g -O0"
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT $TMP/$PRGNAM
+
+cd $TMP
+tar xvf $CWD/wine-$VERSION.tar.?z*
+
+#If a patch fails, we ignore the error
+if [ -d $CWD/patch ]; then
+	cd wine-$VERSION
+	for i in $( ls $CWD/patch ); do
+		cat $CWD/patch/$i | patch -p1 || true
+	done
+	autoconf
+	cd ..
+fi
+
+cd wine-$VERSION
+ 
+chown -R root:root .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+mkdir -p build
+cd build
+# all libs are 32 bit and all builds are out of tree
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+/bin/ash ../configure \
+  --prefix=$PREFIX \
+  --mandir=$PREFIX/man \
+  --docdir=$PREFIX/doc/$PRGNAM-$VERSION \
+  --with-opengl \
+  --build=$ARCH-slackware-linux
+
+if [ "$MAKEDEP" = "yes" ]; then
+make depend
+fi
+
+make
+make install DESTDIR=$PKG
+
+# No striping the binary
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a \
+  $TMP/wine-$VERSION/ANNOUNCE $TMP/wine-$VERSION/AUTHORS $TMP/wine-$VERSION/COPYING.LIB \
+  $TMP/wine-$VERSION/LICENSE* $TMP/wine-$VERSION/README $TMP/wine-$VERSION/VERSION \
+  $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM-debug.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/wine-debug-slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
