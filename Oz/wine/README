@@ -14,4 +14,5 @@ wine-compat32.SlackBuild will build wine compat 32 bit to be used with wine64.
 
 They all work with tarballs. They all acceptMAKEDEP=yes for running make depend 
 	before make and they will apply patches found in patch/. Scripts ignore the
-	failed patches.
+	failed patches. Every build script has a debug equirement for building easy to
+	debug Wine packages.

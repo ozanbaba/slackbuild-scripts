@@ -15,5 +15,5 @@ wine-compat32: Homepage: http://www.winehq.com/
 wine-compat32:
 wine-compat32: This package consists of win32 compatibility files
 wine-compat32: for multilib 64 bit systems with wine64 installed. 
-wine-compat32: This is a debug built
+wine-compat32:
 wine-compat32:
