@@ -4,37 +4,38 @@
 #SARPI is for static networks, DARPI is for dynamic networks
 #And HARPI is for hybrid networks (both static and dynamic)
 
-METHOD=HARPI
+METHOD=DARPI
+LOGFILE=/var/log/argon.log
+PIDFILE=/var/run/arpon.pid
 
 start(){
 	echo Starting ArpON
-	if [ -e /var/run/arpon.pid ]; then
-		rm /var/run/arpon.pid
+	if [ -e "$PIDFILE" ]; then
+		rm -rf "$PIDFILE"
 	fi
 	
 	if [ "$METHOD" = "DARPI" ]; then
-		/sbin/arpon --darpi --pid-file /var/run/arpon.pid -q -g --log-file /var/log/arpon.log -o 2>&1 > /dev/null 
+		/sbin/arpon --darpi --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null 
 	fi
 
 	if [ "$METHOD" = "SARPI" ]; then
-		/sbin/arpon --sarpi --pid-file /var/run/arpon.pid -q -g --log-file /var/log/arpon.log -o 2>&1 > /dev/null
+		/sbin/arpon --sarpi --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null
 	fi
 
 	if [ "$METHOD" = "HARPI" ]; then
-		/sbin/arpon --harpi --pid-file /var/run/arpon.pid -q -g --log-file /var/log/arpon.log -o 2>&1 > /dev/null
+		/sbin/arpon --harpi --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null
 	fi
 }
 
 stop(){
-	if [ -e /var/run/arpon.pid ]; then
-		kill -s term $( cat /var/run/arpon.pid )
+	if [ -e $PIDFILE ]; then
+		kill -s term $( cat $PIDFILE )
 	fi
 }
 
 restart(){
-	if [ -e /var/run/arpon.pid ]; then
-		kill -s term $( cat /var/rub/arpon.pid )
-	fi
+	
+	stop
 	start
 }
 
