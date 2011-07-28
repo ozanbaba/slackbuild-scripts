@@ -17,3 +17,11 @@ rather sets precise policies by using SARPI for static networks, DARPI
 for dynamic networks and HARPI for hybrid networks thus making today's
 standardized protocol working and secure from any foreign intrusion.
 
+
+To start the ArpON at boot, set executable /etc/rc.d/rc.ArpON and add
+following code to /etc/rc.d/rc.local
+
+if [ -x /etc/rc.d/rc.ArpON ]; then
+        /etc/rc.d/rc.ArpON start
+fi
+
