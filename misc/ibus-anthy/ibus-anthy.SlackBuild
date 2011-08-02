@@ -8,19 +8,16 @@
 # unless such conditions are required by law.
 
 PRGNAM=ibus-anthy
-VERSION=${VERSION:-1.2.6}
+VERSION=${VERSION:-1.2.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
-#automatic arch detection from SBo template
-
 if [ -z "$ARCH" ]; then
-	case "$( uname -m )" in
-		i?86) ARCH=i486 ;;
-		arm*) ARCH=arm ;;
-		#if ARCH is not set already, use uname -m
-		*) ARCH=$( uname -m ) ;;
-	esac
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+    *) ARCH=$( uname -m ) ;;
+  esac
 fi
 
 CWD=$(pwd)

@@ -6,7 +6,7 @@
 # Maintained by Ozan Türkyılmaz <ozan.turkyilmaz@gmail.com>
 
 PRGNAM=gsnmp
-VERSION=0.3.0
+VERSION=0.2.0
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -54,7 +54,6 @@ find . -type f -exec chmod a-s,go-w {} \;
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
-  --build=$ARCH-slackware-linux \
   --prefix=/usr \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --mandir=/usr/man \
