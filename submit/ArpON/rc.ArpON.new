@@ -7,6 +7,7 @@
 METHOD=DARPI
 LOGFILE=/var/log/argon.log
 PIDFILE=/var/run/arpon.pid
+INTERFACE=eth0
 
 start(){
 	echo Starting ArpON
@@ -15,15 +16,15 @@ start(){
 	fi
 	
 	if [ "$METHOD" = "DARPI" ]; then
-		/sbin/arpon --darpi --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null 
+		/sbin/arpon --darpi -i $INTERFACE--pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null 
 	fi
 
 	if [ "$METHOD" = "SARPI" ]; then
-		/sbin/arpon --sarpi --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null
+		/sbin/arpon --sarpi -i $INTERFACE --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null
 	fi
 
 	if [ "$METHOD" = "HARPI" ]; then
-		/sbin/arpon --harpi --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null
+		/sbin/arpon --harpi -i $INTERFACE --pid-file "$PIDFILE" -q -g --log-file "$LOGFILE" -o 2>&1 > /dev/null
 	fi
 }
 

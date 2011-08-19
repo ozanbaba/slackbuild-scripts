@@ -25,3 +25,5 @@ if [ -x /etc/rc.d/rc.ArpON ]; then
         /etc/rc.d/rc.ArpON start
 fi
 
+rc.ArpON will use DARPI and eth0 by default. To change them, edit rc.ArpON file.
+To use SARPI, /etc/arpon.sarpi will has to be edited to fit the network setup. 
