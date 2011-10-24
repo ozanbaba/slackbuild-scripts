@@ -12,3 +12,7 @@ libmatroska.  Configure will use the internal versions if it fails
 to find systemwide
 
 Interested parties can build QT version of GUI by passing QTGUI=yes
+
+Note: Mkvtoolnix build will try to use system libmatroska and libembl
+and if they don't exist or unusable, then it will build Mkvtoolnix 
+linking with them.
