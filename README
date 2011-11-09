@@ -1,0 +1,53 @@
+This repo is for my SlackBuild scripts. It includes scripts for my SlackBuilds.org
+scripts and some other scripts that I will never submit to SBo for different reasons.
+
+Directory structure is similar to SBo repo structure. One important difference is
+Oz directory. It homes my non-SBo scripts. submit directory is for will-be--submited
+scripts. 
+
+./python
+./python/pychm
+./desktop
+./desktop/xfce4-systemload-plugin
+./Oz
+./Oz/h264enc
+./Oz/pypar2
+./Oz/pgmfindclip
+./Oz/parole
+./Oz/chaplin
+./Oz/mpglen
+./Oz/xvidenc
+./Oz/cdfs
+./Oz/wine-git Building wine from a source tree. It exclusively uses ash as a shell.
+./Oz/clang Building llvm and clang together.
+./Oz/wine BUilding wine from a tarball but it works similar to wine-git.
+./libraries
+./libraries/libupnp
+./libraries/liboop
+./libraries/gnet
+./libraries/libtbb
+./libraries/libcap-ng
+./libraries/libmatroska
+./libraries/libebml
+./libraries/cbase
+./libraries/gsnmp
+./system
+./system/bootchart
+./system/prelink
+./submit
+./submit/ArpON
+./submit/srware-iron
+./submit/exult WIP
+./submit/logjam
+./submit/libmxp
+./submit/vstr
+./submit/parti-all
+./submit/libcddb
+./submit/winswitch
+./submit/xpra
+./games
+./games/Chatbot-Eliza
+./games/kildclient
+./multimedia
+./multimedia/mkvtoolnix
+
