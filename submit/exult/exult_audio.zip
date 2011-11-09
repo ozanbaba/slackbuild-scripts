@@ -1,0 +1,563 @@
+<html>
+<head><title>Downloading status</title>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type=text/css>
+BODY,TD { font-family: Verdana, Helvetica, Arial; color: #000000; font-size:11px}
+A{color:#000000;text-decoration:none;}
+.window TH {
+        color: #FFFFFF;
+        font-weight: bold;
+        font-size: 10pt;
+        text-align: left;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 5px;
+        text-align: left;
+}
+.window TD {
+        font-size: 8pt;
+        background-color:#f1f1f1;
+}
+.info TD {
+        font-size: 9pt;
+        vertical-align: top;
+}
+.subNote {
+        font-size:8pt;
+        margin:0px;
+        padding-left:5px;
+        text-align: left;
+}
+.progressBar {
+        width: 560px;
+        border-top: 1px solid #9C9CA5;
+        border-left: 1px solid #9C9CA5;
+        border-bottom: 1px solid #FFFFFF;
+        border-right: 1px solid #FFFFFF;
+}
+.barBorder {
+        border:1px solid #f1f1f1;
+        float: left;
+}
+.bar {
+        background-color: #B5B5BD;
+        width: 12px;
+        line-height: 19px;
+        height: 100%;
+        white-space: nowrap;
+}
+.statusSuccess {
+        border: 1px solid #339900;
+        background-color: #CDFDC9;
+        padding: 5px;
+        font-size: 10pt;
+}
+.statusFail {
+        border: 1px solid #CC0000;
+        background-color: #FBA497;
+        padding: 5px;
+        font-size: 10pt;
+        font-weight: bold;
+}
+.failReason {
+        font-size: 8pt;
+        font-weight: normal;
+}
+.statustitle {
+        vertical-align: middle;
+        font-size: 10pt;
+        font-weight: bold;
+}
+th.vis{FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#8aacd2,endColorStr=#3a5c82);}
+</style>
+</head>
+<body  bgColor="#ffffff">
+
+
+<script language="Javascript">
+function setCookie( name, value, expires, path, domain, secure ) {
+	var today = new Date();
+	today.setTime( today.getTime() );
+	if ( expires ) {
+		expires = expires * 1000 * 60 * 60 * 24;
+	}
+	var expires_date = new Date( today.getTime() + (expires) );
+	document.cookie = name+'='+escape( value ) +
+		( ( expires ) ? ';expires='+expires_date.toGMTString() : '' ) + //expires.toGMTString()
+		( ( path ) ? ';path=' + path : '' ) +
+		( ( domain ) ? ';domain=' + domain : '' ) +
+		( ( secure ) ? ';secure' : '' );
+}
+
+function del_cookie(name) {
+	document.cookie = name +'=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+} 
+
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=");
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1; 
+    c_end=document.cookie.indexOf(";",c_start);
+    if (c_end==-1) c_end=document.cookie.length;
+    return unescape(document.cookie.substring(c_start,c_end));
+    } 
+  }
+return "";
+}
+
+function timedMsg()
+{
+	cstring=getCookie('Redownload');
+	if (cstring)
+	{
+		if (cstring==escape(document.location.href))
+		{
+		del_cookie('Redownload');
+		document.location.reload();
+		}
+	}
+	setTimeout("timedMsg()",2000);
+	return 0;
+}
+
+timedMsg();
+
+CacheOrigin=0;
+ISAServerUniqueID="GateWayXWM4X1";//if found in POST request will be redirected to POSTF.aspx which then serves scanned file.
+if (document.location.href.indexOf("ftp://")==0)
+{
+	if (document.location.href.indexOf("@")>0)
+	document.write("<form name=\"form1\" action=\"http://"+document.location.href.substring(document.location.href.indexOf("@")+1,2000)+"\" method=\"post\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"url\" value=\"\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"SaveToDisk\" value=\"NO\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"Orig\" value=\""+document.location+"\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"Cache\" value=\"N\"></form>");
+	else
+	document.write("<form name=\"form1\" action=\"http://"+document.location.href.substring(6,2000)+"\" method=\"post\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"url\" value=\"\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"SaveToDisk\" value=\"NO\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"Orig\" value=\""+document.location+"\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"Cache\" value=\"N\"></form>");
+}
+else
+document.write("<form name=\"form1\" action=\""+document.location+"\" method=\"post\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"url\" value=\"\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"SaveToDisk\" value=\"NO\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"Orig\" value=\""+document.location+"\"><input type=\"hidden\" name=\""+ISAServerUniqueID+"Cache\" value=\"N\"></form>");
+
+frameWidth=320;
+frameHeight=240;
+if (self.innerWidth){
+frameWidth = self.innerWidth;
+frameHeight = self.innerHeight;
+}
+else if (document.documentElement && document.documentElement.clientWidth)
+{ frameWidth = document.documentElement.clientWidth;
+	frameHeight = document.documentElement.clientHeight;
+}
+else if (document.body)
+{
+frameWidth = document.body.clientWidth;
+frameHeight = document.body.clientHeight;
+}
+if (frameWidth<632){
+	try{
+		window.resizeTo(632,frameHeight);
+		frameWidth=632;
+	}catch(err){frameWidth=1;}
+}
+if (frameHeight<450){
+	 try{
+		window.resizeTo(frameWidth,450);
+		frameHeight=450;
+	}catch(err) {frameHeight=1;}
+}
+if (self.innerWidth){
+
+frameWidth = self.innerWidth;
+frameHeight = self.innerHeight;
+}
+else if (document.documentElement && document.documentElement.clientWidth)
+{ frameWidth = document.documentElement.clientWidth;
+	frameHeight = document.documentElement.clientHeight;
+}
+else if (document.body)
+{
+frameWidth = document.body.clientWidth;
+frameHeight = document.body.clientHeight;
+}
+if (( (frameWidth<120)||(frameHeight<90) )&&(window.name.indexOf('DownloadStatus37459789')!=0))
+{
+	day = new Date();
+	id = day.getTime();
+        try{
+	newwindow=window.open(location.href, 'DownloadStatus37459789'+ id, 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=632,height=450,left = 50,top = 42');
+	}catch(err) {}
+	location.href="about:blank";
+}
+var kacount=0;
+var bdcount=0;
+var nocount=0;
+</script>
+<center>
+<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+<tr><td align="center">
+<table cellspacing="1" cellpadding="5" bgcolor="#3A5C82" class="window">
+<tr><th class=vis>GFI WebMonitor 4 Secure Download</th></tr>
+<tr><td nowrap><div id="XTIT"><b>Downloading: </b></div>
+	<p><table cellpadding="0" cellspacing="0">
+	<tr><td id="PBAR" class="progressBar">
+		<div class="barBorder"><div style="width:12px;line-height:19px;height:100%;white-space:nowrap;">&nbsp;</div></div>
+	</td></tr>
+	</table></p>
+        <table cellpadding="0" cellspacing="3" class="info" width="560px">
+	<tr>
+        <td>
+	 <div style="CLEAR:none;DISPLAY:inline;width:212px;float:left;"><b>Downloading file</b></div>
+	 <div style="CLEAR:none;DISPLAY:inline;" id="DStat"><b><font color="#696969">in progress...</font></b></div>
+	 <div id="XZN" class="subNote">Pending...</div>
+	 <div id="ScanInfo" style="DISPLAY:none;">
+	     <div id="BD">
+	 	<div style="CLEAR:none;DISPLAY:inline;width:212px;float:left;">Scanning with BitDefender</div><div style="CLEAR:none;DISPLAY:inline;" id="BdStat"></div><div id="BdDef" class="subNote">&nbsp;</div>
+	     </div>
+	     <div id="KA">
+		<div style="CLEAR:none;DISPLAY:inline;width:212px;float:left;">Scanning with Kaspersky</div><div style="CLEAR:none;DISPLAY:inline;" id="KaStat"></div><div id="KaDef" class="subNote">&nbsp;</div>
+	     </div>
+	     <div id="NO">
+		<div style="CLEAR:none;DISPLAY:inline;width:212px;float:left;">Scanning with Norman</div><div style="CLEAR:none;DISPLAY:inline;" id="NoStat"></div><div id="NoDef" class="subNote">&nbsp;</div>
+	     </div>
+
+		<div id="Result" style="padding-top:5px;"></div>
+  		<div style="CLEAR:none;DISPLAY:inline;width:100%;" id="ResultComments"></div>
+	</div>
+	</td>
+	</tr>
+	</table>
+<center>
+<div id="JS"><INPUT TYPE="button" VALUE="Cancel" onClick="javascript:history.go(-1)"></div>
+</center>
+</td>
+</tr>
+</table>
+</td></tr>
+</table>
+<script LANGUAGE="javascript">
+
+URLOfThisDownload="";//UpdatePage updates this.
+ShortURL="";
+KnownDownloadSize=0; 
+Svrt=0;
+DownloadRealFileName="";//if exists,reflects real filename from content-disposition:filename http header.
+
+//WARNING: ms firewall service restart needed
+//Address for proxy clients. Might be not existing name/ip. 
+ThisISAServerAddress="http://monitor.isa";//IF ISA plugin will see request to this address it will process it as internal WM request.
+
+//Address for all clients must be IP (real or virtual)
+SecondISAServerAddress="http://1.1.1.1"
+function  _utf8_decode(utftext) {
+        var string = "";   var i = 0;  var c = c1 = c2 = 0;
+        while ( i < utftext.length ) {      c = utftext.charCodeAt(i);
+            if (c < 128) {  string += String.fromCharCode(c);
+                	i++;
+            }
+            else if((c > 191) && (c < 224)) {   c2 = utftext.charCodeAt(i+1);
+			                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+			                i += 2;
+            }
+            else {c2 = utftext.charCodeAt(i+1);
+                c3 = utftext.charCodeAt(i+2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+        return string;
+    }
+
+// UpdatePage is receiving updates from ISA server about download progress 
+//
+// DownloadedSoFar: number of Bytes received.	
+// status         : text describing downl. progress or scanning results
+// URL            : text address of object beeing downloaded.
+
+function UpdatePage(DownloadedSoFar,Status,URL){
+
+		if (URL!=""){
+			     URLOfThisDownload=URL;
+			      URLOfThisDownload= _utf8_decode(unescape(URL));
+			     ShortURL=URLOfThisDownload;
+			     if (ShortURL.length>77)	
+ 				    ShortURL= URLOfThisDownload.substring(0,37)+"..."+URLOfThisDownload.substring(URLOfThisDownload.length-37,4000);
+				     document.all.XTIT.innerHTML="<b>Downloading: </b>"+ShortURL;
+			    }
+             
+                if (Status!=""){//change status only when there is information
+				document.all.XZN.innerHTML=Status;
+				if (Status.indexOf(" cache:")>0) CacheOrigin=1;
+  				}
+
+				if (KnownDownloadSize>=DownloadedSoFar){
+							gotticks=DownloadedSoFar/(KnownDownloadSize/40);
+							document.all.PBAR.innerHTML="";
+							while(gotticks>0)
+							{ gotticks--;
+							  document.all.PBAR.innerHTML+="<div class=\"barBorder\"><div class=\"bar\">&nbsp;</div></div>";
+							}
+				}
+
+}
+function NonCachedRedownload()
+{
+	document.form1[1].value='YES';
+	document.form1[3].value='Y';
+	if (navigator.userAgent.toLowerCase().indexOf('msie')==-1)
+	{
+		setCookie('Redownload',escape(document.location.href));
+	}
+	document.form1.submit();
+return 0;
+}
+// DownloadFinished function is called at the end of download
+//
+// Parameters 
+// SizeDownloaded    : number total number of BYTES downloaded.(can be compared with advertises size from web server if present)
+// Result            : number 1-Success 0-Blocked (when Success parameter LinkToGetRealFile will contain URL with original payload)
+// ResultComments    : text   detailing result reason 
+// LinkToGetRealFile : text   Shortyli Link used for SaveAs button. URL link where where its possible to get originaly requested URL content
+
+function DownloadFinished(SizeDownloaded,Result,ResultComments,LinkToGetRealFile){       
+
+        forbuttons="<INPUT TYPE='button' VALUE='Back' onClick='javascript:history.go(-1)'>";
+
+	if (Result==0)
+	{
+	  document.all.Result.innerHTML="<b>Result:</b>";
+	  if (Svrt==0)
+	  document.all.ResultComments.innerHTML="<div class=\"statusFail\">Threat detected!<div class=\"failReason\">"+ResultComments+"</div></div>";
+          else
+	  document.all.ResultComments.innerHTML="<div class=\"statusFail\">Possible threat detected.<div class=\"failReason\">"+ResultComments+"</div></div>";
+
+	}else
+	if (Result==1)
+	{
+	  if (((KnownDownloadSize>0)&&(SizeDownloaded==KnownDownloadSize))||(KnownDownloadSize==0))
+		{
+          	  document.all.DStat.innerHTML="<font color=\"#339900\">success</font>";
+		}else{
+          	  document.all.DStat.innerHTML="&nbsp;";
+			}
+
+
+	  document.all.Result.innerHTML="<b>Result:</b>";
+   	  document.all.ResultComments.innerHTML="<div class=\"statusSuccess\">No threat detected.</div>";
+        }
+         if (LinkToGetRealFile!=""){
+				document.form1[0].value=LinkToGetRealFile;	
+				forbuttons+="<INPUT TYPE='button' VALUE='Save to disk' onClick=document.form1[1].value='YES';document.form1[3].value='N';document.form1.submit();>";
+				if (CacheOrigin==1){
+					 forbuttons+="<INPUT TYPE='button' VALUE='Non-cached download' onClick=NonCachedRedownload();>";
+					}
+                                //if we have link for save to disk make also download status page URL right clicable so user can right click on link and select himself save as
+                       		if (DownloadRealFileName!=""){
+				 document.all.XTIT.innerHTML="<b>Downloaded: </b><a href='javascript:document.form1[1].value=\"NO\";document.form1.submit();'>"+ShortURL+"<br>Filename:"+DownloadRealFileName+"</a>";
+				}else
+				{
+				 document.all.XTIT.innerHTML="<b>Downloaded: </b><a href='javascript:document.form1[1].value=\"NO\";document.form1.submit();'>"+ShortURL+"</a>";
+				}
+
+				gotticks=40;
+				document.all.PBAR.innerHTML="";
+				while(gotticks>0)
+				{ gotticks--;
+				  document.all.PBAR.innerHTML+="<div class=\"barBorder\"><div class=\"bar\">&nbsp;</div></div>";
+				}
+
+				//if you want to forward downloaded and scanned  file directly to user just enable next line and restart ISA Server:
+				//document.form1.submit();
+
+			}
+
+	
+
+	if (forbuttons!=""){ //dont change it if there is nothing to be changed
+                             document.all.JS.innerHTML=forbuttons;
+	  		   }
+
+}
+
+// DownloadBroken is called only when tcp/ip connection is broken WEBSERVER<->ISA(reset/lost/timedout)
+//
+function DownloadBroken(){       
+          document.all.PBAR.innerHTML="Connection broken";
+	  document.all.XZN.innerHTML="Downloading interrupted.";
+	  document.all.JS.innerHTML="<INPUT TYPE='button' VALUE='Back' onClick='javascript:history.go(-1)'>";
+}
+
+// SetRealFilename is called only when
+// HTTP reply contain content-disposition filename which overwrite
+// filename generated from URL in browsers
+//
+// Parameters 
+// Filename    : text  filename
+//
+function SetRealFilename(Filename){
+        
+	if (Filename!=""){
+			   DownloadRealFileName=Filename;//set global variable for this download 
+ 			   document.all.XTIT.innerHTML=document.all.XTIT.innerHTML+"<br>Filename:"+Filename;
+			}
+
+}
+
+// function ScanUpdate(BdDef,KaDef,BdStat,KaStat)
+// BdDef	  : text time version of signatures and engine. Can be set just once. 
+// KaDef	  : same for Kaspersky
+// NoDef	  : same for Norman
+// BdStat	  : number 0-OFF SCanner is switched OFF; 1- Scann will happen pending; 2-Scanned OK no threat detected; 3-Blocked threat Detected 4-scannning in progress 5-Internal scanner failure 6-Suspicious 7-Corrupted 8-known format but hide some data like zip password protected
+// KaStat	  : number same meaning ans for BdStat but for Kaspersky
+// NoStat	  : same for Norman
+
+function ScanUpdate(BdDef,KaDef,NoDef,BdStat,KaStat,NoStat){
+
+	if ((BdStat>1)||(KaStat>1)||(NoStat>1)){
+				      document.all.ScanInfo.style.display="block";
+				      document.all.DStat.innerHTML="<font color=\"#339900\">success</font>";
+				     }
+
+	if (BdDef!=''){
+		document.all.BdDef.innerHTML="("+BdDef+")";
+	}
+
+	if (KaDef!=''){
+		document.all.KaDef.innerHTML="("+KaDef+")";
+	}
+	if (NoDef!=''){
+		document.all.NoDef.innerHTML="("+NoDef+")";
+	}
+
+ 	 switch(BdStat){
+	   case 0: document.all.BdStat.innerHTML="off";
+		   document.all.BD.style.display="none";
+		   break;
+	   case 1: document.all.BdStat.innerHTML="pending";
+		   document.all.BD.style.display="none";
+		   break;
+	   case 2: document.all.BdStat.innerHTML="<font color=\"#339900\">success</font>";
+		   document.all.BD.style.display="block";
+		   break;
+	   case 3: document.all.BdStat.innerHTML="<font color=\"#ff0000\">threat detected</font>";
+		   document.all.BD.style.display="block";
+		   break;
+	   case 4: if (bdcount==0){
+				document.all.BdStat.innerHTML="<b><font color=\"#696969\">in progress...</font></b>";
+				bdcount=1;
+			}
+			else
+			{
+			 document.all.BdStat.innerHTML="<b><font color=\"#696969\">in progress..</font></b>";
+			 bdcount=0;
+			}
+		   document.all.BD.style.display="block";
+		   break;
+	   case 5: document.all.BdStat.innerHTML="<font color=\"#ff0000\">failed</font>";
+		   document.all.BD.style.display="block";
+		   break;
+
+	 }
+
+ 	 switch(NoStat){
+	   case 0: document.all.NoStat.innerHTML="off";
+		   document.all.NO.style.display="none";
+		   break;
+	   case 1: document.all.NoStat.innerHTML="pending";
+		   document.all.NO.style.display="none";
+		   break;
+	   case 2: document.all.NoStat.innerHTML="<font color=\"#339900\">success</font>";
+		   document.all.NO.style.display="block";
+		   break;
+	   case 3: document.all.NoStat.innerHTML="<font color=\"#ff0000\">threat detected</font>";
+		   document.all.NO.style.display="block";
+		   break;
+	   case 4: if (nocount==0){
+				document.all.NoStat.innerHTML="<b><font color=\"#696969\">in progress...</font></b>";
+				nocount=1;
+			}
+			else
+			{
+			 document.all.NoStat.innerHTML="<b><font color=\"#696969\">in progress..</font></b>";
+			 nocount=0;
+			}
+		   document.all.NO.style.display="block";
+		   break;
+	   case 5: document.all.NoStat.innerHTML="<font color=\"#ff0000\">failed</font>";
+		   document.all.NO.style.display="block";
+		   break;
+
+	 }
+
+ 	 switch(KaStat){
+	   case 0: document.all.KaStat.innerHTML="off";
+		   document.all.KA.style.display="none";
+		   break;
+	   case 1: document.all.KaStat.innerHTML="pending";
+		   document.all.KA.style.display="none";
+		   break;
+	   case 2: document.all.KaStat.innerHTML="<font color=\"#339900\">success</font>";
+		   document.all.KA.style.display="block";
+		   break;
+	   case 3: document.all.KaStat.innerHTML="<font color=\"#ff0000\">threat detected</font>";
+		   document.all.KA.style.display="block";
+		   break;
+	   case	4: if (kacount==0){
+				document.all.KaStat.innerHTML="<b><font color=\"#696969\">in progress...</font></b>";
+				kacount=1;
+			}
+			else
+			{
+			 document.all.KaStat.innerHTML="<b><font color=\"#696969\">in progress..</font></b>";
+			 kacount=0;
+			}
+		   document.all.KA.style.display="block";
+		   break;
+	   case 5: document.all.KaStat.innerHTML="<font color=\"#ff0000\">failed</font>";
+		   document.all.KA.style.display="block";
+		   break;
+	   case 6: document.all.KaStat.innerHTML="<font color=\"#ff0000\">suspicious file detected</font>";
+		   document.all.KA.style.display="block";
+		   break;
+	   case 7: document.all.KaStat.innerHTML="<font color=\"#ff0000\">corrupted file detected</font>";
+		   document.all.KA.style.display="block";
+		   break;
+	   case 8: document.all.KaStat.innerHTML="<font color=\"#ff0000\">hidden file detected</font>";
+		   document.all.KA.style.display="block";
+		   Svrt=1;
+		   break;
+
+
+	 }
+
+}
+
+// UpdateDownloadDetails: called at the beginning of download.
+//
+// Can force stopping of downloads at the beginning of download or warn user.
+
+function UpdateDownloadDetails(Computer,User,Size,ContentType,RealContentType)
+{
+ KnownDownloadSize=Size;//assign size so we know how to calculate progress bar and check if advertised size matched final downloaded size.
+}
+if (((document.location.href.indexOf("http://googlemail.com")==0)||(document.location.href.indexOf("http://mail.google.com")==0))&&(navigator.appName == "Microsoft Internet Explorer") && (6.9<=parseFloat(navigator.appVersion.split("MSIE")[1])))
+{
+alert("Your GOOGLE email attachment download will be secured by GFI WebMonitor.");
+}
+
+</script>
+<!--Follows function calls generated dynamically by plugin (keep max 32KB size of this template!) -->
+<script LANGUAGE="javascript">UpdatePage(6409,"To be downloaded  48439905 Bytes","http://citylan.dl.sourceforge.net/project/exult/exult-data/exult_audio.zip");
+UpdateDownloadDetails("192.168.0.176","senimdi.com oturkyil",48439905," application/octet-stream","");
+
+ ScanUpdate("","2011 10-08 02:00","",0,0,1);
+</script>
+
+<script LANGUAGE="javascript"> UpdatePage(8529,"Size: 46.196 MB Downloaded 8 KB","");</script>
+
+<script LANGUAGE="javascript"> UpdatePage(115109,"Size: 46.196 MB Downloaded 112 KB","");</script>
+
+<script LANGUAGE="javascript"> UpdatePage(315129,"Size: 46.196 MB Downloaded 308 KB <BR>Transfer Rate: 307.74 KB/Sec.<BR>Estimated time left: 2 Min. 32 Sec.","");</script>
+
+<script LANGUAGE="javascript"> UpdatePage(450909,"Size: 46.196 MB Downloaded 440 KB <BR>Transfer Rate: 220.17 KB/Sec.<BR>Estimated time left: 3 Min. 32 Sec.","");</script>
