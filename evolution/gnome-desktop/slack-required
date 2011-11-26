@@ -1,0 +1,13 @@
+libXrandr
+GConf
+gnome-vfs
+rarian
+startup-notification
+gnome-vfs
+gtk+2
+libgnome
+iceauth
+libxml2
+ORBit2
+pygobject
+pygtk
