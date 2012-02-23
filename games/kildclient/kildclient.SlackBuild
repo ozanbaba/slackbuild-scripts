@@ -86,7 +86,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --build=$ARCH-slackware-linux
 
 make pkgdocdir=/usr/doc/$PRGNAM-$VERSION
-make pkgdocdir=/usr/doc/$PRGNAM-$VERSION install-strip DESTDIR=$PKG
+make pkgdocdir=/usr/doc/$PRGNAM-$VERSION install DESTDIR=$PKG
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
