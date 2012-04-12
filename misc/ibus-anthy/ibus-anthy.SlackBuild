@@ -8,7 +8,7 @@
 # unless such conditions are required by law.
 
 PRGNAM=ibus-anthy
-VERSION=${VERSION:-1.2.6}
+VERSION=${VERSION:-1.2.7}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
