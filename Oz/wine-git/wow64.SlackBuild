@@ -61,6 +61,7 @@ OUTPUT=${OUTPUT:-/tmp}
 BDIR=$TMP/$PRGNAM
 BDIR2=$TMP/$PRGNAM2
 MAKEDEP=${MAKEDEP:-no}
+DEBUG=${DEBUG:-no}
 
 set -e
 
@@ -117,11 +118,11 @@ fi
 make
 make install DESTDIR=$PKG
 
-
+if [ "$DEBUG" = "no"];then
 #Strip the binaries
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
+fi
 #Compress the man pages
 find $PKG/usr/man -type f -exec gzip -9 {} \;
 for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlint $i ).gz $i.gz ; rm $i ; done
@@ -161,10 +162,12 @@ fi
 
 make
 make install DESTDIR=$PKG2
+if [ "$DEBUG" = "no"]; then
 
 #Stript the binaries
 find $PKG2 | xargs file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+fi
 
 #Copy install
 mkdir -p $PKG2/install
