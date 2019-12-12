@@ -27,7 +27,7 @@
 
 PRGNAM=xpra
 
-VERSION=${VERSION:-0.0.7.22}
+VERSION=${VERSION:-4.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -66,7 +66,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find . \
@@ -75,13 +75,11 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-python make_constants_pxi.py wimpiggy/lowlevel/constants.txt wimpiggy/lowlevel/constants.pxi
-
 CFLAGS="$SLKCFLAGS" \
-	python setup.py install --home=$PKG/usr
+	python3 setup.py install --home=$PKG/usr
 
 #fix the usr/lib64/python/ to system version
-mv $PKG/usr/lib${LIBDIRSUFFIX}/python $PKG/usr/lib${LIBDIRSUFFIX}/python2.6
+mv $PKG/usr/lib${LIBDIRSUFFIX}/python $PKG/usr/lib${LIBDIRSUFFIX}/python3.7
 
 # Strip binaries and libraries.
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
@@ -90,12 +88,11 @@ find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
 # Move and Compress man pages
 mv $PKG/usr/share/man $PKG/usr/man
 gzip -9 $PKG/usr/man/man1/xpra.1
-rmdir $PKG/usr/share
 
 # Copy program documentation into the package
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-  COPYING NEWS README README.parti README.wimpiggy README.xpra \
+  COPYING NEWS README \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
