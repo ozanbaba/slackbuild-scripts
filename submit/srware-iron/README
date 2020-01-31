@@ -1,9 +1,0 @@
-SRWare Iron is a web browser based on Google's Chrome Browser and its 
-source base Chromium. SRWare Iron is modified to over come Chrome's 
-privacy problems. SRWare modified Chromium source code to keep innovative
-design, fast rendering and running while keeping out the critical points 
-related to privacy problems.
-
-This script repacks the SRWare's IRon Linux builds for Slackware.
-
-SRWare Iron needs google-chrome-pam from /extra

@@ -1,9 +1,0 @@
-Libmxp is MUD eXtension Protocol paser in C++. It is almost complete
-and ready to use. 
-
-Following MXP features are not implemented yet;
--Response for the <VERSION> tag doesn't support sending of STYLE and 
-	REGISTERED information
--QUIET parameter for the <RELOCATE> tag is not supported; also, <RELOCATE> 
-	does not have a closing tag in this implementation
--<SUPPORT> with parameters is not supported
