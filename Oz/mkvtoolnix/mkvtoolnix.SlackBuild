@@ -77,8 +77,9 @@ CXXFLAGS="$SLKCFLAGS" \
   --libdir=/usr/lib${LIBDIRSUFFIX} \
   --sysconfdir=/etc \
   --mandir=/usr/man \
+  --disable-update-check \
   --localstatedir=/var \
-  --enable-qt=${QTGUI:-no} \
+  --enable-qt=no \
   --docdir=/usr/$PRGNAM-$VERSION \
   --htmldir=/usr/$PRGNAM-$VERSION \
   --with-boost
