@@ -103,7 +103,7 @@ find . \
 cd $BDIR 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-/bin/ash $WINE_GIT/configure \
+/bin/dash $WINE_GIT/configure \
  --prefix=/usr \
  --enable-win64 \
  --mandir=/usr/man \
@@ -145,6 +145,9 @@ cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
 
 #Now 32 bit Wine in compat mode
+
+#Make the 32bit system is on
+. /etc/profile.d/32dev.sh
 
 #Configure it according to
 cd $BDIR2

@@ -138,6 +138,9 @@ cd $PKG
 
 #Now 32 bit Wine in compat mode
 
+#First we will make 32dev
+. /etc/profile.d/32dev.sh
+
 #Configure it according to
 cd $BDIR2
 CFLAGS="$SLKCFLAGS" \
